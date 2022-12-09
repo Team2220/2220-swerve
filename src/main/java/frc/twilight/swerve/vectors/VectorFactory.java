@@ -39,7 +39,6 @@ public class VectorFactory {
         return out;
     }
 
-    // No clue if this is actually gonna work lol, we will see
     public static DriveVector driveVectorFromWheelVectors(WheelVector FR, WheelVector FL, WheelVector BR, WheelVector BL) {
         double fwd = 
             (

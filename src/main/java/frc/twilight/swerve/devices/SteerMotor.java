@@ -11,10 +11,11 @@ public class SteerMotor {
     private static final int TIMOUT_MS = 10;
     
     private final TalonFX motor;
-    private static final double TICKS_PER_REVOLUTION = 2048;
+    public static final double TICKS_PER_REVOLUTION = 2048;
+    public static final double ANGLE_UNITS_PER_ROTATION = 360;
 
-    public SteerMotor() {
-        motor = new TalonFX(0);
+    public SteerMotor(int canID) {
+        motor = new TalonFX(canID);
 
         // Reset motor settings
         motor.configFactoryDefault();
@@ -29,7 +30,7 @@ public class SteerMotor {
         motor.setInverted(ModuleConfig.DT_STEER_MOTOR_INVERTED);
 
         // Motor is neutral when within range
-        motor.configNeutralDeadband(0.001, TIMOUT_MS);
+        motor.configNeutralDeadband(0.1, TIMOUT_MS);
 
         // Set motor to use internal encoder
         motor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, TIMOUT_MS);
@@ -50,11 +51,11 @@ public class SteerMotor {
     }
 
     public void setAngle(double angle) {
-        motor.set(ControlMode.Position, angle * TICKS_PER_REVOLUTION / 360);
+        motor.set(ControlMode.Position, angle * TICKS_PER_REVOLUTION / ANGLE_UNITS_PER_ROTATION);
     }
 
     public double getAngle() {
-        return motor.getSelectedSensorPosition() * 360 / TICKS_PER_REVOLUTION;
+        return motor.getSelectedSensorPosition() * ANGLE_UNITS_PER_ROTATION / TICKS_PER_REVOLUTION;
     }
 
     public double getRPM() {
@@ -86,5 +87,9 @@ public class SteerMotor {
 
     public void setInverted(boolean inverted) {
         motor.setInverted(inverted ? ModuleConfig.DT_STEER_MOTOR_INVERTED : !ModuleConfig.DT_STEER_MOTOR_INVERTED);
+    }
+
+    public void setEncoderPosition(double angle) {
+        motor.setSelectedSensorPosition(angle * TICKS_PER_REVOLUTION / ANGLE_UNITS_PER_ROTATION, 0, TIMOUT_MS);
     }
 }

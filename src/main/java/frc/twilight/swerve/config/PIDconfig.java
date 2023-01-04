@@ -10,9 +10,9 @@ public class PIDconfig {
 
 
     // PID values for the steer motor
-    public static final double DT_STEER_P = 0.2;
+    public static final double DT_STEER_P = 1;
     public static final double DT_STEER_I = 0;
-    public static final double DT_STEER_D = 0.1;
+    public static final double DT_STEER_D = 70;
     public static final double DT_STEER_F = 0;
 
 

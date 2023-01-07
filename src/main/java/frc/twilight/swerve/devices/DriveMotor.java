@@ -11,6 +11,11 @@ public class DriveMotor {
 
     private final TalonFX motor;
     private static final double TICKS_PER_REVOLUTION = 2048;
+
+    private double p = PIDconfig.DT_DRIVE_P;
+    private double i = PIDconfig.DT_DRIVE_I;
+    private double d = PIDconfig.DT_DRIVE_D;
+    private double f = PIDconfig.DT_DRIVE_F;
     
     public DriveMotor(int id) {
         motor = new TalonFX(id);
@@ -19,10 +24,10 @@ public class DriveMotor {
         motor.configFactoryDefault();
 
         // Set up PID
-        motor.config_kP(0, PIDconfig.DT_DRIVE_P, TIMOUT_MS);
-        motor.config_kI(0, PIDconfig.DT_DRIVE_I, TIMOUT_MS);
-        motor.config_kD(0, PIDconfig.DT_DRIVE_D, TIMOUT_MS);
-        motor.config_kF(0, PIDconfig.DT_DRIVE_F, TIMOUT_MS);
+        motor.config_kP(0, p, TIMOUT_MS);
+        motor.config_kI(0, i, TIMOUT_MS);
+        motor.config_kD(0, d, TIMOUT_MS);
+        motor.config_kF(0, f, TIMOUT_MS);
 
         // Sets motor inversion
         motor.setInverted(ModuleConfig.DT_DRIVE_MOTOR_INVERTED);
@@ -61,19 +66,31 @@ public class DriveMotor {
     }
 
     public void setP(double p) {
-        motor.config_kP(0, p, TIMOUT_MS);
+        if (this.p != p) {
+            motor.config_kP(0, p, TIMOUT_MS);
+            this.p = p;
+        }
     }
 
     public void setI(double i) {
-        motor.config_kI(0, i, TIMOUT_MS);
+        if (this.i != i) {
+            motor.config_kI(0, i, TIMOUT_MS);
+            this.i = i;
+        }
     }
 
     public void setD(double d) {
-        motor.config_kD(0, d, TIMOUT_MS);
+        if (this.d != d) {
+            motor.config_kD(0, d, TIMOUT_MS);
+            this.d = d;
+        }
     }
 
     public void setF(double f) {
-        motor.config_kF(0, f, TIMOUT_MS);
+        if (this.f != f) {
+            motor.config_kF(0, f, TIMOUT_MS);
+            this.f = f;
+        }
     }
 
     public void setPID(double p, double i, double d, double f) {

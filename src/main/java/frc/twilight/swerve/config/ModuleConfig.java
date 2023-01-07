@@ -7,10 +7,10 @@ public class ModuleConfig {
     // Drive gear ratio
     public static final double DT_DRIVE_GEAR_RATIO = (14.0 / 50.0) * (28.0 / 16.0) * (15.0 / 45.0);
     // Drive motor inverted
-    public static final boolean DT_DRIVE_MOTOR_INVERTED = true;
+    public static final boolean DT_DRIVE_MOTOR_INVERTED = false;
 
     // Steer gear ratio
-    public static final double DT_STEER_GEAR_RATIO = (15.0 / 32.0) * (10.0 / 60.0);
+    public static final double DT_STEER_GEAR_RATIO = 7.0 / 150.0;
     // Steer motor inverted
     public static final boolean DT_STEER_MOTOR_INVERTED = true;
 
@@ -23,11 +23,11 @@ public class ModuleConfig {
     public static final double DT_FL_SE_OFFSET = 128.3203125;
 
     // Steer CANcoder offset front right
-    public static final double DT_FR_SE_OFFSET = 332.578125;
+    public static final double DT_FR_SE_OFFSET = 329.150390625;
 
     // Steer CANcoder offset back left
     public static final double DT_BL_SE_OFFSET = 124.98046875;
 
     // Steer CANcoder offset back right
-    public static final double DT_BR_SE_OFFSET = 16.611328125;
+    public static final double DT_BR_SE_OFFSET = 181.494140625;
 }

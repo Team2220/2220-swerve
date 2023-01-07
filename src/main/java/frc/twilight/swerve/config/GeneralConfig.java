@@ -10,6 +10,11 @@ public final class GeneralConfig {
     public static final double DT_WIDTH = 1;
 
 
+    public static final double DT_START_GYRO = 0;
+    public static final double DT_START_X = 0;
+    public static final double DT_START_Y = 0;
+
+
 
     // Velocity restrictions m/s
     public static final boolean DT_VEL_CONTROL_ENABLE = true;

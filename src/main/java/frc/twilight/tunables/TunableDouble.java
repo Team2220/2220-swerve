@@ -1,11 +1,12 @@
 package frc.twilight.tunables;
 
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 public class TunableDouble {
     private double defaultValue;
-    private NetworkTableEntry shuffleboard;
+    private GenericEntry shuffleboard;
 
     /**
      * Creates a TunableDouble. It can be enabled and disabled (Use defaultValue)

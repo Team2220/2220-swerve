@@ -5,7 +5,7 @@ import frc.twilight.helpfulThings.Angles;
 import frc.twilight.swerve.config.CANidConfig;
 import frc.twilight.swerve.config.GeneralConfig;
 import frc.twilight.swerve.config.ModuleConfig;
-import frc.twilight.swerve.devices.Gyro;
+// import frc.twilight.swerve.devices.Gyro;
 import frc.twilight.swerve.vectors.DriveVector;
 import frc.twilight.swerve.vectors.Position;
 import frc.twilight.swerve.vectors.VectorFactory;
@@ -17,7 +17,7 @@ public class SwerveDrive {
     private final SwerveModule backLeft;
     private final SwerveModule backRight;
 
-    private final Gyro gyro = new Gyro();
+    // private final Gyro gyro = new Gyro();
 
     private double odoLastCheck = -1;
     private Position odoPosition;
@@ -30,7 +30,7 @@ public class SwerveDrive {
 
         odoLastCheck = System.currentTimeMillis();
 
-        gyro.setPosition(GeneralConfig.DT_START_GYRO);
+        // gyro.setPosition(GeneralConfig.DT_START_GYRO);
 
         odoPosition = new Position(GeneralConfig.DT_START_X, GeneralConfig.DT_START_Y, GeneralConfig.DT_START_GYRO);
 
@@ -72,7 +72,7 @@ public class SwerveDrive {
 
     public DriveVector getDrive() {
         DriveVector out = VectorFactory.driveVectorFromWheelVectors(frontRight.get(), frontLeft.get(), backRight.get(), backLeft.get());
-        out.zeroDirection(-gyro.getAngle());
+        // out.zeroDirection(-gyro.getAngle());
 
         return out;
     }
@@ -89,9 +89,9 @@ public class SwerveDrive {
         DriveVector drive = getDrive();
         double x = odoPosition.getX() + drive.getFwd() * dt;
         double y = odoPosition.getY() + drive.getStr() * dt;
-        double angle = gyro.getAngle();
+        // double angle = gyro.getAngle();
 
-        odoPosition = new Position(x, y, angle);
+        odoPosition = new Position(x, y, 0);
     }
 
     public Position getOdo() {

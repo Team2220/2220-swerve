@@ -1,5 +1,6 @@
 package frc.twilight.swerve;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.twilight.helpfulThings.Angles;
 import frc.twilight.swerve.config.CANidConfig;
 import frc.twilight.swerve.config.GeneralConfig;
@@ -32,13 +33,29 @@ public class SwerveDrive {
         gyro.setPosition(GeneralConfig.DT_START_GYRO);
 
         odoPosition = new Position(GeneralConfig.DT_START_X, GeneralConfig.DT_START_Y, GeneralConfig.DT_START_GYRO);
+
+        Shuffleboard.getTab("Swerve").addNumber("FL Enc Angle", () -> frontLeft.getEncoderAngle()).withPosition(0, 0);
+        Shuffleboard.getTab("Swerve").addNumber("FR Enc Angle", () -> frontRight.getEncoderAngle()).withPosition(0, 1);
+        Shuffleboard.getTab("Swerve").addNumber("BL Enc Angle", () -> backLeft.getEncoderAngle()).withPosition(0, 2);
+        Shuffleboard.getTab("Swerve").addNumber("BR Enc Angle", () -> backRight.getEncoderAngle()).withPosition(0, 3);
+
+        Shuffleboard.getTab("Swerve").addNumber("FL Angle", () -> frontLeft.get().getAngle()).withPosition(1, 0);
+        Shuffleboard.getTab("Swerve").addNumber("FR Angle", () -> frontRight.get().getAngle()).withPosition(1, 1);
+        Shuffleboard.getTab("Swerve").addNumber("BL Angle", () -> backLeft.get().getAngle()).withPosition(1, 2);
+        Shuffleboard.getTab("Swerve").addNumber("BR Angle", () -> backRight.get().getAngle()).withPosition(1, 3);
+
+        Shuffleboard.getTab("Swerve").addNumber("FL Vel", () -> frontLeft.get().getVelocity()).withPosition(2, 0);
+        Shuffleboard.getTab("Swerve").addNumber("FR Vel", () -> frontRight.get().getVelocity()).withPosition(2, 1);
+        Shuffleboard.getTab("Swerve").addNumber("BL Vel", () -> backLeft.get().getVelocity()).withPosition(2, 2);
+        Shuffleboard.getTab("Swerve").addNumber("BR Vel", () -> backRight.get().getVelocity()).withPosition(2, 3);
+
     }
 
     public void setDrive(DriveVector vector) {
-        vector.zeroDirection(gyro.getAngle());
+        // vector.zeroDirection(gyro.getAngle());
         
-        vector.controlVel();
-        vector.controlAccel(getDrive());
+        // vector.controlVel();
+        // vector.controlAccel(getDrive());
 
         WheelVector[] wheelVectors = VectorFactory.wheelVectorsFromDriveVector(vector);
 

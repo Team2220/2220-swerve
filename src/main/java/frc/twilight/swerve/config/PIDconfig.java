@@ -3,11 +3,10 @@ package frc.twilight.swerve.config;
 import frc.twilight.tunables.TunableDouble;
 
 public class PIDconfig {
-    public static final boolean SHUFFLEBOARD_VALUES_ENABLED = false;
+    public static final boolean SHUFFLEBOARD_VALUES_ENABLED = true;
 
 
     // PID values for the drive motor
-    // public static final double DT_DRIVE_P = 0; // An error of 1 rps results in ___ V output
     public static final TunableDouble DT_DRIVE_P = new TunableDouble("DT_DRIVE_P", 0, SHUFFLEBOARD_VALUES_ENABLED);
     public static final TunableDouble DT_DRIVE_I = new TunableDouble("DT_DRIVE_I", 0.0001, SHUFFLEBOARD_VALUES_ENABLED);
     public static final TunableDouble DT_DRIVE_D = new TunableDouble("DT_DRIVE_D", 0, SHUFFLEBOARD_VALUES_ENABLED);

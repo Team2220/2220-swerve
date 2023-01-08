@@ -22,19 +22,19 @@ public class VectorFactory {
 
         // Front Right
         out[0].setVelocity(Math.sqrt(b * b + c * c));
-        out[0].setAngle(Math.atan2(b, c) * 180 / Math.PI);
+        out[0].setAngle(-Math.atan2(b, c) * 180 / Math.PI);
 
         // Front Left
         out[1].setVelocity(Math.sqrt(b * b + d * d));
-        out[1].setAngle(Math.atan2(b, d) * 180 / Math.PI);
+        out[1].setAngle(-Math.atan2(b, d) * 180 / Math.PI);
 
         // Back Right
         out[2].setVelocity(Math.sqrt(a * a + c * c));
-        out[2].setAngle(Math.atan2(a, c) * 180 / Math.PI);
+        out[2].setAngle(-Math.atan2(a, c) * 180 / Math.PI);
 
         // Back Left
         out[3].setVelocity(Math.sqrt(a * a + d * d));
-        out[3].setAngle(Math.atan2(a, d) * 180 / Math.PI);
+        out[3].setAngle(-Math.atan2(a, d) * 180 / Math.PI);
 
         return out;
     }

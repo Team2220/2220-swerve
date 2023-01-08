@@ -28,7 +28,7 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    m_swerve = new Swerve(() -> -m_controller.getLeftX(), () -> -m_controller.getLeftY(), () -> m_controller.getRightX());
+    m_swerve = new Swerve(() -> m_controller.getLeftX() * 5, () -> -m_controller.getLeftY() * 5, () -> m_controller.getRightX() * 5);
   }
 
   /**

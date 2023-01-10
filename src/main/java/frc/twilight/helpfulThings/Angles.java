@@ -15,21 +15,29 @@ public class Angles {
     }
 
     public static WheelVector optimizeWheel(WheelVector current, WheelVector set) {
-        WheelVector out = new WheelVector(set.getVelocity(), set.getAngle());
+        double angle = current.getAngle();
+        double angleNew = set.getAngle();
 
-        double currentAngle = current.getAngle();
-        double setAngle = set.getAngle();
+        int angleRevo = (int)(angle / 360);
+        
+        angle %= 360;
+        angleNew %= 360;
 
-        double angleDiff = setAngle - currentAngle;
+        double velNew = set.getVelocity();
 
-        if (angleDiff > 180) {
-            out.setAngle(setAngle - 180);
-            out.setVelocity(-set.getVelocity());
-        } else if (angleDiff < -180) {
-            out.setAngle(setAngle + 180);
-            out.setVelocity(-set.getVelocity());
+        double change = angle - angleNew;
+
+        if (Math.abs(change) > 90 && Math.abs(change) < 270) {
+            angleNew += 180;
+            velNew = -velNew;
+        } else if (change > 270) {
+            angleNew += 360;
+        } else if (change < -270) {
+            angleNew -= 360;
         }
 
-        return out;
+        angleNew += 360 * angleRevo;
+
+        return new WheelVector(velNew, angleNew);
     }
 }

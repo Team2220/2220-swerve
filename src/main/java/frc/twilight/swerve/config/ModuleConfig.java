@@ -20,14 +20,14 @@ public class ModuleConfig {
     public static final boolean DT_STEER_ENCODER_INVERTED = false;
 
     // Steer CANcoder offset front left
-    public static final double DT_FL_SE_OFFSET = 128.7598;
+    public static final double DT_FL_SE_OFFSET = 128.1335;
 
     // Steer CANcoder offset front right
-    public static final double DT_FR_SE_OFFSET = 332.7539;
+    public static final double DT_FR_SE_OFFSET = 333.5449;
 
     // Steer CANcoder offset back left
-    public static final double DT_BL_SE_OFFSET = 124.8047;
+    public static final double DT_BL_SE_OFFSET = 125.0684;
 
     // Steer CANcoder offset back right
-    public static final double DT_BR_SE_OFFSET = 196.3477;
+    public static final double DT_BR_SE_OFFSET = 191.3379;
 }

@@ -29,5 +29,5 @@ public class ModuleConfig {
     public static final double DT_BL_SE_OFFSET = 125.0684;
 
     // Steer CANcoder offset back right
-    public static final double DT_BR_SE_OFFSET = 191.3379;
+    public static final double DT_BR_SE_OFFSET = 182.8125;
 }

@@ -41,8 +41,8 @@ public class DriveVector {
     }
 
     public void zeroDirection(double facing) {
-        double fwdOut = fwd * Math.cos(facing) + str * Math.sin(facing);
-        double strOut = str * Math.cos(facing) - fwd * Math.sin(facing);
+        double fwdOut = (fwd * Math.cos(Math.toRadians(facing))) + (str * Math.sin(Math.toRadians(facing)));
+        double strOut = (str * Math.cos(Math.toRadians(facing))) - (fwd * Math.sin(Math.toRadians(facing)));
 
         fwd = fwdOut;
         str = strOut;

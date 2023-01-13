@@ -49,6 +49,8 @@ public class SwerveDrive {
         Shuffleboard.getTab("Swerve").addNumber("BL Vel", () -> backLeft.get().getVelocity()).withPosition(2, 2);
         Shuffleboard.getTab("Swerve").addNumber("BR Vel", () -> backRight.get().getVelocity()).withPosition(2, 3);
 
+        Shuffleboard.getTab("Swerve").addNumber("X Pos", () -> odoPosition.getX()).withPosition(4, 0);
+        Shuffleboard.getTab("Swerve").addNumber("Y Pos", () -> odoPosition.getY()).withPosition(4, 0);
     }
 
     public void setDrive(DriveVector vector) {
@@ -72,7 +74,7 @@ public class SwerveDrive {
 
     public DriveVector getDrive() {
         DriveVector out = VectorFactory.driveVectorFromWheelVectors(frontRight.get(), frontLeft.get(), backRight.get(), backLeft.get());
-        // out.zeroDirection(-gyro.getAngle());
+        out.zeroDirection(-gyro.getAngle());
 
         return out;
     }
@@ -87,6 +89,7 @@ public class SwerveDrive {
         odoLastCheck = time;
 
         DriveVector drive = getDrive();
+        
         double x = odoPosition.getX() + drive.getFwd() * dt;
         double y = odoPosition.getY() + drive.getStr() * dt;
         double angle = gyro.getAngle();
@@ -96,5 +99,10 @@ public class SwerveDrive {
 
     public Position getOdo() {
         return odoPosition;
+    }
+
+    public void zeroGyro() {
+        gyro.zeroSensor();
+        setOdo(0, 0, 0);
     }
 }

@@ -8,27 +8,31 @@ public class Controller {
     private double deadzone = 0.2;
 
     public Controller(int port) {
-        controller = new XboxController(port);
+      controller = new XboxController(port);
     }
 
     public double getLeftX() {
-        return deadband(controller.getLeftX(), deadzone);
+      return deadband(controller.getLeftX(), deadzone);
     }
 
     public double getLeftY() {
-        return -deadband(controller.getLeftY(), deadzone);
+      return -deadband(controller.getLeftY(), deadzone);
     }
 
     public double getRightX() {
-        return deadband(controller.getRightX(), deadzone);
+      return deadband(controller.getRightX(), deadzone);
     }
 
     public double getRightY() {
-        return -deadband(controller.getRightY(), deadzone);
+      return -deadband(controller.getRightY(), deadzone);
     }
     
     public void setDeadband(double set) {
-        deadzone = set;
+      deadzone = set;
+    }
+
+    public boolean getAButton() {
+      return controller.getAButton();
     }
 
     private static double deadband(double value, double deadband) {

@@ -33,6 +33,12 @@ public class Swerve extends SubsystemBase {
     DriveVector out = new DriveVector(y_axis.getAsDouble(), x_axis.getAsDouble(), rotation.getAsDouble());
 
     swerve.setDrive(out);
+
+    swerve.updateOdo();
+  }
+
+  public void zeroGyro() {
+    swerve.zeroGyro();
   }
 
   @Override

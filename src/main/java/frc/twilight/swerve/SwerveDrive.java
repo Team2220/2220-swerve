@@ -1,10 +1,12 @@
 package frc.twilight.swerve;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.twilight.helpfulThings.Angles;
 import frc.twilight.swerve.config.CANidConfig;
 import frc.twilight.swerve.config.GeneralConfig;
 import frc.twilight.swerve.config.ModuleConfig;
+import frc.twilight.swerve.config.PIDconfig;
 import frc.twilight.swerve.devices.Gyro;
 import frc.twilight.swerve.vectors.DriveVector;
 import frc.twilight.swerve.vectors.Position;
@@ -18,6 +20,13 @@ public class SwerveDrive {
     private final SwerveModule backRight;
 
     private final Gyro gyro = new Gyro();
+    private double gyroSetAngle = 0;
+
+    private PIDController gyroPID = new PIDController(
+        PIDconfig.DT_GYRO_P.getValue(), 
+        PIDconfig.DT_GYRO_I.getValue(), 
+        PIDconfig.DT_GYRO_D.getValue()
+    );
 
     private double odoLastCheck = -1;
     private Position odoPosition;
@@ -54,6 +63,22 @@ public class SwerveDrive {
     }
 
     public void setDrive(DriveVector vector) {
+        // Get the current requested speed in deg/sec of the clockwise rotation of the robot
+        double gyroSetSpeed = vector.getRcw();
+
+        // Add the requested speed to the current angle
+        gyroSetAngle += gyroSetSpeed * 0.02;
+
+        // Set the PID setpoint to the new angle
+        gyroPID.setSetpoint(gyroSetAngle);
+
+        // Calculate the correction needed to get to the setpoint
+        double gyroCorrection = gyroPID.calculate(gyro.getAngle());
+
+        // Set the correction to the requested speed
+        vector.setRcw(gyroCorrection);
+
+
         vector.zeroDirection(gyro.getAngle());
         
         // vector.controlVel();

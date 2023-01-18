@@ -74,8 +74,8 @@ public class DriveVector {
 
     public void controlAccel(DriveVector current) {
         if (GeneralConfig.DT_ACCEL_CONTROL_ENABLE) {
-            double fwdDiff = fwd - current.getFwd() / GeneralConfig.DT_LOOP_TIME;
-            double strDiff = str - current.getStr() / GeneralConfig.DT_LOOP_TIME;
+            double fwdDiff = fwd - current.getFwd() / 0.02;
+            double strDiff = str - current.getStr() / 0.02;
 
             if (fwdDiff > GeneralConfig.DT_MAX_ACCEL) {
                 fwd = current.getFwd() + GeneralConfig.DT_MAX_ACCEL;

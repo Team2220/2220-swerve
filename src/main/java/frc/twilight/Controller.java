@@ -66,6 +66,62 @@ public class Controller {
       }
     }
 
+    // Does not work for POV buttons, will return false
+    public boolean getButtonPressed(Button button) {
+      switch(button) {
+        case A:
+          return controller.getAButtonPressed();
+        case B:
+          return controller.getBButtonPressed();
+        case X:
+          return controller.getXButtonPressed();
+        case Y:
+          return controller.getYButtonPressed();
+        case LB:
+          return controller.getLeftBumperPressed();
+        case RB:
+          return controller.getRightBumperPressed();
+        case BACK:
+          return controller.getBackButtonPressed();
+        case START:
+          return controller.getStartButtonPressed();
+        case LS:
+          return controller.getLeftStickButtonPressed();
+        case RS:
+          return controller.getRightStickButtonPressed();
+        default:
+          return false;
+      }
+    }
+
+    // Does not work for POV buttons, will return false
+    public boolean getButtonReleased(Button button) {
+      switch(button) {
+        case A:
+          return controller.getAButtonReleased();
+        case B:
+          return controller.getBButtonReleased();
+        case X:
+          return controller.getXButtonReleased();
+        case Y:
+          return controller.getYButtonReleased();
+        case LB:
+          return controller.getLeftBumperReleased();
+        case RB:
+          return controller.getRightBumperReleased();
+        case BACK:
+          return controller.getBackButtonReleased();
+        case START:
+          return controller.getStartButtonReleased();
+        case LS:
+          return controller.getLeftStickButtonReleased();
+        case RS:
+          return controller.getRightStickButtonReleased();
+        default:
+          return false;
+      }
+    }
+
     private static double deadband(double value, double deadband) {
         if (Math.abs(value) > deadband) {
           if (value > 0.0) {

@@ -1,7 +1,5 @@
 package frc.twilight;
 
-import java.util.function.Supplier;
-
 import edu.wpi.first.wpilibj.XboxController;
 
 /**

@@ -31,8 +31,39 @@ public class Controller {
       deadzone = set;
     }
 
-    public boolean getAButton() {
-      return controller.getAButton();
+    public boolean getButton(Button button) {
+      switch(button) {
+        case A:
+          return controller.getAButton();
+        case B:
+          return controller.getBButton();
+        case X:
+          return controller.getXButton();
+        case Y:
+          return controller.getYButton();
+        case LB:
+          return controller.getLeftBumper();
+        case RB:
+          return controller.getRightBumper();
+        case BACK:
+          return controller.getBackButton();
+        case START:
+          return controller.getStartButton();
+        case UP:
+          return controller.getPOV() == 0;
+        case DOWN:
+          return controller.getPOV() == 180;
+        case LEFT:
+          return controller.getPOV() == 270;
+        case RIGHT:
+          return controller.getPOV() == 90;
+        case LS:
+          return controller.getLeftStickButton();
+        case RS:
+          return controller.getRightStickButton();
+        default:
+          return false;
+      }
     }
 
     private static double deadband(double value, double deadband) {
@@ -46,4 +77,21 @@ public class Controller {
           return 0.0;
         }
       }
+
+    public enum Button {
+      A,
+      B,
+      X,
+      Y,
+      LB,
+      RB,
+      BACK,
+      START,
+      UP,
+      DOWN,
+      LEFT,
+      RIGHT,
+      LS,
+      RS
+    }
 }

@@ -18,7 +18,7 @@ public class Arm extends SubsystemBase {
 
     private TalonFX wrist = new TalonFX(Constants.WRIST_TALONFX);
     private TalonFX shoulder = new TalonFX(Constants.SHOULDER_TALONFX);
-
+   
     ShuffleboardTab arm = Shuffleboard.getTab("arm");
     GenericEntry shoulderSB = arm.add("shoulder angle", 0).getEntry();
     GenericEntry wristSB = arm.add("wrist angle", 0).getEntry();
@@ -42,6 +42,14 @@ public class Arm extends SubsystemBase {
         shoulder.configStatorCurrentLimit(config);
         wrist.configStatorCurrentLimit(config);
 
+        wrist.config_kP(0, 0);
+        wrist.config_kI(0, 0);
+        wrist.config_kD(0, 0);
+
+        
+        shoulder.config_kP(0, 0);
+        shoulder.config_kI(0, 0);
+        shoulder.config_kD(0, 0);
     }
 
     public void setWristPercentOutput(double value) {

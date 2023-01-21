@@ -1,6 +1,8 @@
 package frc.twilight.swerve.devices;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
+import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
@@ -59,6 +61,14 @@ public class SteerMotor {
         // Set nominal output
         motor.configNominalOutputForward(0, TIMOUT_MS);
         motor.configNominalOutputReverse(0, TIMOUT_MS);
+
+        // Set current limiting
+        motor.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 30, 35, 0.5));
+        motor.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 30, 35, 0.5));
+
+        // Set voltage comp
+        motor.configVoltageCompSaturation(10);
+        motor.enableVoltageCompensation(true);
     }
 
     public void setAngle(double angle) {

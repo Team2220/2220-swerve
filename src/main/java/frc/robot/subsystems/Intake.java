@@ -13,6 +13,9 @@ public class Intake {
     public Intake(){
         left.configVoltageCompSaturation(10);
         right.configVoltageCompSaturation(10);
+
+        left.setInverted(Constants.INTAKE_LEFT_INVERTED);
+        right.setInverted(Constants.INTAKE_RIGHT_INVERTED);
         
         StatorCurrentLimitConfiguration statorConfig = new StatorCurrentLimitConfiguration();
         statorConfig.enable = true;

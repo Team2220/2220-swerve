@@ -38,5 +38,4 @@ public final class GeneralConfig {
 
     // Don't touch these plz ty
     public static final double DT_DIAMETER = Math.sqrt(Math.pow(DT_LENGTH, 2) + Math.pow(DT_WIDTH, 2));
-    public static final double DT_LOOP_TIME = 0.02;
 }

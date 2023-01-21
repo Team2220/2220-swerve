@@ -1,7 +1,6 @@
 package frc.twilight.tunables;
 
 import edu.wpi.first.networktables.GenericEntry;
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 public class TunableDouble {

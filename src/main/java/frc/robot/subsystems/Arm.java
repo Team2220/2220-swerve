@@ -68,6 +68,8 @@ public class Arm extends SubsystemBase {
         return wristEncoder.getAbsolutePosition() - Constants.WRIST_ENCODER_OFFSET;
     }
 
+    
+
     // @Override
     public void periodic() {
         shoulderSB.setDouble(getShoulderPosition());

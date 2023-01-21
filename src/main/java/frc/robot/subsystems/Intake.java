@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -13,6 +14,10 @@ public class Intake extends SubsystemBase {
     private TalonFX right = new TalonFX(Constants.INTAKE_RIGHT_TALONFX);
 
     public Intake(){
+    left.configAllSettings(new TalonFXConfiguration());
+    right.configAllSettings(new TalonFXConfiguration());
+
+
         left.configVoltageCompSaturation(10);
         right.configVoltageCompSaturation(10);
 

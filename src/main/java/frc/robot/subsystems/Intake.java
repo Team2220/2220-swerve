@@ -2,11 +2,13 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class Intake {
+public class Intake extends SubsystemBase {
     private TalonFX left = new TalonFX(Constants.INTAKE_LEFT_TALONFX);
     private TalonFX right = new TalonFX(Constants.INTAKE_RIGHT_TALONFX);
 
@@ -29,7 +31,11 @@ public class Intake {
         right.configSupplyCurrentLimit(supplyConfig);
         left.configSupplyCurrentLimit(supplyConfig);
 
+        right.follow(left);
     }
 
+    public void setPercentOutput(double value) {
+        right.set(TalonFXControlMode.PercentOutput, value);
+    }
     
 }

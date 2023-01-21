@@ -6,12 +6,15 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.Intake.IntakePercentOutput;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Swerve;
 import frc.twilight.Controller;
 import edu.wpi.first.wpilibj2.command.Command;
 // import edu.wpi.first.wpilibj2.command.button.Button;
+
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -21,7 +24,7 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  // private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+
 
   private final Swerve m_swerve;
   private final Arm m_arm;
@@ -31,12 +34,12 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Configure the button bindings
-    configureButtonBindings();
-
     m_swerve = new Swerve(() -> m_controller.getLeftX() * 5, () -> m_controller.getLeftY() * 5, () -> m_controller.getRightX() * 5);
     m_arm = new Arm();
     m_intake = new Intake();
+
+     // Configure the button bindings
+     configureButtonBindings();
   }
 
   /**
@@ -47,6 +50,11 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // new Button(m_controller::getAButton).whenPressed(m_swerve::zeroGyro);
+    new Trigger(() -> m_controller.getButton(frc.twilight.Controller.Button.UP))
+      .whileTrue(new IntakePercentOutput(0.1, m_intake));
+    new Trigger(() -> m_controller.getButton(frc.twilight.Controller.Button.DOWN))
+      .whileTrue(new IntakePercentOutput(-0.1, m_intake));
+    
   }
 
   /**
@@ -55,7 +63,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
+    
     return null;
   }
 }

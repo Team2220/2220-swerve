@@ -24,4 +24,6 @@ public final class Constants {
     public static final boolean WRIST_INVERTED = false; 
     public static final int WRIST_DUTYENCODER = 4;
     public static final int SHOULDER_DUTYENCODER = 4;
+    public static final double WRIST_ENCODER_OFFSET = 0;
+    public static final double SHOULDER_ENCODER_OFFSET = 0;
 }

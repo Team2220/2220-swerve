@@ -14,8 +14,8 @@ import frc.robot.Constants;
 
 public class Arm extends SubsystemBase {
     private DutyCycleEncoder wristEncoder = new DutyCycleEncoder(Constants.WRIST_DUTYENCODER);
-    private DutyCycleEncoder armEncoder = new DutyCycleEncoder(Constants.SHOULDER_DUTYENCODER); 
-       
+    private DutyCycleEncoder shoulderEncoder = new DutyCycleEncoder(Constants.SHOULDER_DUTYENCODER);
+
     private TalonFX wrist = new TalonFX(Constants.WRIST_TALONFX);
     private TalonFX shoulder = new TalonFX(Constants.SHOULDER_TALONFX);
    
@@ -60,7 +60,19 @@ public class Arm extends SubsystemBase {
         shoulder.set(TalonFXControlMode.PercentOutput, value);
     }
 
+    public double getShoulderPosition() {
+        return shoulderEncoder.getAbsolutePosition() - Constants.SHOULDER_ENCODER_OFFSET;
+    }
+
+    public double getWristPosition() {
+        return wristEncoder.getAbsolutePosition() - Constants.WRIST_ENCODER_OFFSET;
+    }
+
     // @Override
-    // public class Arm periodic();
+    public void periodic() {
+        shoulderSB.setDouble(getShoulderPosition());
+        wristSB.setDouble(getWristPosition());
+
+    }
 
 }

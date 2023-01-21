@@ -62,14 +62,14 @@ public class RobotContainer {
     // Arm Buttons
     // Wrist
     new Trigger(() -> m_controller.getButton(frc.twilight.Controller.Button.A))
-    .whileTrue(new WristPercentOutput(0.1, m_arm));
+    .whileTrue(new WristPercentOutput(0.5, m_arm));
     new Trigger(() -> m_controller.getButton(frc.twilight.Controller.Button.B))
-    .whileTrue(new WristPercentOutput(-0.1, m_arm));
+    .whileTrue(new WristPercentOutput(-0.5, m_arm));
     // Shoulder
     new Trigger(() -> m_controller.getButton(frc.twilight.Controller.Button.X))
-    .whileTrue(new ShoulderPercentOutput(0.1, m_arm));
+    .whileTrue(new ShoulderPercentOutput(0.5, m_arm));
     new Trigger(() -> m_controller.getButton(frc.twilight.Controller.Button.Y))
-    .whileTrue(new ShoulderPercentOutput(-0.1, m_arm));
+    .whileTrue(new ShoulderPercentOutput(-0.5, m_arm));
   }
 
   /**

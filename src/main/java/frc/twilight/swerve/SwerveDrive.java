@@ -20,7 +20,6 @@ public class SwerveDrive {
     private final SwerveModule backRight;
 
     private final Gyro gyro = new Gyro();
-    private double gyroSetAngle = 0;
 
     private PIDController gyroPID = new PIDController(
         PIDconfig.DT_GYRO_P.getValue(), 
@@ -63,21 +62,12 @@ public class SwerveDrive {
     }
 
     public void setDrive(DriveVector vector) {
-        // Get the current requested speed in deg/sec of the clockwise rotation of the robot
-        double gyroSetSpeed = vector.getRcw();
+        gyroPID.setP(PIDconfig.DT_GYRO_P.getValue());
+        gyroPID.setI(PIDconfig.DT_GYRO_I.getValue());
+        gyroPID.setD(PIDconfig.DT_GYRO_D.getValue());
 
-        // Add the requested speed to the current angle
-        gyroSetAngle += gyroSetSpeed * 0.02;
-
-        // Set the PID setpoint to the new angle
-        gyroPID.setSetpoint(gyroSetAngle);
-
-        // Calculate the correction needed to get to the setpoint
-        double gyroCorrection = gyroPID.calculate(gyro.getAngle());
-
-        // Set the correction to the requested speed
-        vector.setRcw(gyroCorrection);
-
+        gyroPID.setSetpoint(vector.getRcw());
+        vector.setRcw(gyroPID.calculate(gyro.getAngleSpeed()) + PIDconfig.DT_GYRO_F.getValue());
 
         vector.zeroDirection(gyro.getAngle());
         

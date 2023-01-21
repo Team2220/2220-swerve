@@ -20,6 +20,10 @@ public class Gyro {
         return ahrs.getAngle() % 360;
     }
 
+    public double getAngleSpeed() {
+        return ahrs.getRate();
+    }
+
     public void setPosition(double offset) {
         ahrs.reset();
         ahrs.setAngleAdjustment(-offset);

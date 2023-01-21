@@ -34,23 +34,27 @@ public class SwerveDrive {
 
         odoPosition = new Position(GeneralConfig.DT_START_X, GeneralConfig.DT_START_Y, GeneralConfig.DT_START_GYRO);
 
-        Shuffleboard.getTab("Swerve").addNumber("FL Enc Angle", () -> frontLeft.getEncoderAngle()).withPosition(0, 0);
-        Shuffleboard.getTab("Swerve").addNumber("FR Enc Angle", () -> frontRight.getEncoderAngle()).withPosition(0, 1);
-        Shuffleboard.getTab("Swerve").addNumber("BL Enc Angle", () -> backLeft.getEncoderAngle()).withPosition(0, 2);
-        Shuffleboard.getTab("Swerve").addNumber("BR Enc Angle", () -> backRight.getEncoderAngle()).withPosition(0, 3);
+        if (GeneralConfig.SWERVE_SHUFFLEBOARD_ENABLED) {
+            Shuffleboard.getTab("Swerve").addNumber("FL Enc Angle", () -> frontLeft.getEncoderAngle()).withPosition(0, 0);
+            Shuffleboard.getTab("Swerve").addNumber("FR Enc Angle", () -> frontRight.getEncoderAngle()).withPosition(0, 1);
+            Shuffleboard.getTab("Swerve").addNumber("BL Enc Angle", () -> backLeft.getEncoderAngle()).withPosition(0, 2);
+            Shuffleboard.getTab("Swerve").addNumber("BR Enc Angle", () -> backRight.getEncoderAngle()).withPosition(0, 3);
 
-        Shuffleboard.getTab("Swerve").addNumber("FL Angle", () -> frontLeft.get().getAngle()).withPosition(1, 0);
-        Shuffleboard.getTab("Swerve").addNumber("FR Angle", () -> frontRight.get().getAngle()).withPosition(1, 1);
-        Shuffleboard.getTab("Swerve").addNumber("BL Angle", () -> backLeft.get().getAngle()).withPosition(1, 2);
-        Shuffleboard.getTab("Swerve").addNumber("BR Angle", () -> backRight.get().getAngle()).withPosition(1, 3);
+            Shuffleboard.getTab("Swerve").addNumber("FL Angle", () -> frontLeft.get().getAngle()).withPosition(1, 0);
+            Shuffleboard.getTab("Swerve").addNumber("FR Angle", () -> frontRight.get().getAngle()).withPosition(1, 1);
+            Shuffleboard.getTab("Swerve").addNumber("BL Angle", () -> backLeft.get().getAngle()).withPosition(1, 2);
+            Shuffleboard.getTab("Swerve").addNumber("BR Angle", () -> backRight.get().getAngle()).withPosition(1, 3);
 
-        Shuffleboard.getTab("Swerve").addNumber("FL Vel", () -> frontLeft.get().getVelocity()).withPosition(2, 0);
-        Shuffleboard.getTab("Swerve").addNumber("FR Vel", () -> frontRight.get().getVelocity()).withPosition(2, 1);
-        Shuffleboard.getTab("Swerve").addNumber("BL Vel", () -> backLeft.get().getVelocity()).withPosition(2, 2);
-        Shuffleboard.getTab("Swerve").addNumber("BR Vel", () -> backRight.get().getVelocity()).withPosition(2, 3);
+            Shuffleboard.getTab("Swerve").addNumber("FL Vel", () -> frontLeft.get().getVelocity()).withPosition(2, 0);
+            Shuffleboard.getTab("Swerve").addNumber("FR Vel", () -> frontRight.get().getVelocity()).withPosition(2, 1);
+            Shuffleboard.getTab("Swerve").addNumber("BL Vel", () -> backLeft.get().getVelocity()).withPosition(2, 2);
+            Shuffleboard.getTab("Swerve").addNumber("BR Vel", () -> backRight.get().getVelocity()).withPosition(2, 3);
 
-        Shuffleboard.getTab("Swerve").addNumber("X Pos", () -> odoPosition.getX()).withPosition(4, 0);
-        Shuffleboard.getTab("Swerve").addNumber("Y Pos", () -> odoPosition.getY()).withPosition(4, 0);
+            Shuffleboard.getTab("Swerve").addNumber("X Pos", () -> odoPosition.getX()).withPosition(4, 0);
+            Shuffleboard.getTab("Swerve").addNumber("Y Pos", () -> odoPosition.getY()).withPosition(4, 0);
+
+            Shuffleboard.getTab("Swerve").addNumber("Gyro", () -> gyro.getAngle()).withPosition(3, 0);
+        }
     }
 
     public void setDrive(DriveVector vector) {

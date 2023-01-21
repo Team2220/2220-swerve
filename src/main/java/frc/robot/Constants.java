@@ -22,8 +22,8 @@ public final class Constants {
     public static final int SHOULDER_TALONFX =19;
     public static final boolean SHOULDER_INVERTED = false;
     public static final boolean WRIST_INVERTED = false; 
-    public static final int WRIST_DUTYENCODER = 4;
-    public static final int SHOULDER_DUTYENCODER = 4;
+    public static final int WRIST_DUTYENCODER = 8;
+    public static final int SHOULDER_DUTYENCODER = 9;
     public static final double WRIST_ENCODER_OFFSET = 0.0;
     public static final double SHOULDER_ENCODER_OFFSET = 0.0;
     public static final double SHOULDER_GEAR_RATIO = (5.0 / 1.0) * (5.0 / 1.0) * (4.0 / 1.0) * (15.0 / 54.0);

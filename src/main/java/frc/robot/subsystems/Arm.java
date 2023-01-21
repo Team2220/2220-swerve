@@ -35,13 +35,13 @@ public class Arm extends SubsystemBase {
         shoulder.setInverted(Constants.SHOULDER_INVERTED);
 
         SupplyCurrentLimitConfiguration supplyConfig = new SupplyCurrentLimitConfiguration();
-        supplyConfig.currentLimit = 10;
+        supplyConfig.currentLimit = 33;
         supplyConfig.enable = true;
         shoulder.configSupplyCurrentLimit(supplyConfig);
         wrist.configSupplyCurrentLimit(supplyConfig);
 
         StatorCurrentLimitConfiguration config = new StatorCurrentLimitConfiguration();
-        config.currentLimit = 10;
+        config.currentLimit = 33;
         config.enable = true;
         shoulder.configStatorCurrentLimit(config);
         wrist.configStatorCurrentLimit(config);

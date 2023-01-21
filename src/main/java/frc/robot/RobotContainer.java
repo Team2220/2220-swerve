@@ -6,6 +6,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.Arm.ShoulderPercentOutput;
+import frc.robot.commands.Arm.WristPercentOutput;
 import frc.robot.commands.Intake.IntakePercentOutput;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
@@ -50,11 +52,24 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // new Button(m_controller::getAButton).whenPressed(m_swerve::zeroGyro);
+
+    // Intake Buttons
     new Trigger(() -> m_controller.getButton(frc.twilight.Controller.Button.UP))
       .whileTrue(new IntakePercentOutput(0.1, m_intake));
     new Trigger(() -> m_controller.getButton(frc.twilight.Controller.Button.DOWN))
       .whileTrue(new IntakePercentOutput(-0.1, m_intake));
     
+    // Arm Buttons
+    // Wrist
+    new Trigger(() -> m_controller.getButton(frc.twilight.Controller.Button.A))
+    .whileTrue(new WristPercentOutput(0.1, m_arm));
+    new Trigger(() -> m_controller.getButton(frc.twilight.Controller.Button.B))
+    .whileTrue(new WristPercentOutput(-0.1, m_arm));
+    // Shoulder
+    new Trigger(() -> m_controller.getButton(frc.twilight.Controller.Button.X))
+    .whileTrue(new ShoulderPercentOutput(0.1, m_arm));
+    new Trigger(() -> m_controller.getButton(frc.twilight.Controller.Button.Y))
+    .whileTrue(new ShoulderPercentOutput(-0.1, m_arm));
   }
 
   /**

@@ -20,4 +20,9 @@ public class IntakePercentOutput extends CommandBase {
         m_intake.setPercentOutput(speed);
     }
 
+    @Override
+    public void end(boolean interrupted) {
+        m_intake.setPercentOutput(0);
+    }
+
 }

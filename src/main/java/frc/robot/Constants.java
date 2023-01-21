@@ -17,6 +17,8 @@ import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 public final class Constants {
     public static final int INTAKE_LEFT_TALONFX = 103;// TODO:REALNUMBER
     public static final int INTAKE_RIGHT_TALONFX = 103;// TODO:REALNUMBER
+    public static final boolean INTAKE_LEFT_INVERTED = false;
+    public static final boolean INTAKE_RIGHT_INVERTED = false;
 
     public static final int WRIST_TALONFX = 4;// TODO:REALNUMBER
     public static final int SHOULDER_TALONFX = 5;// TODO:REALNUMBER

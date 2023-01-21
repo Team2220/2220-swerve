@@ -61,11 +61,11 @@ public class Arm extends SubsystemBase {
     }
 
     public double getShoulderPosition() {
-        return shoulderEncoder.getAbsolutePosition();
+        return shoulderEncoder.getAbsolutePosition() - Constants.SHOULDER_ENCODER_OFFSET;
     }
 
     public double getWristPosition() {
-        return wristEncoder.getAbsolutePosition();
+        return wristEncoder.getAbsolutePosition() - Constants.WRIST_ENCODER_OFFSET;
     }
 
     // @Override

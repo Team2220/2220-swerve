@@ -18,8 +18,8 @@ public final class Constants {
     public static final boolean INTAKE_LEFT_INVERTED = false;
     public static final boolean INTAKE_RIGHT_INVERTED = false;
 
-    public static final int WRIST_TALONFX = 4;// TODO:REALNUMBER
-    public static final int SHOULDER_TALONFX = 5;// TODO:REALNUMBER
+    public static final int WRIST_TALONFX = 20;// TODO:REALNUMBER
+    public static final int SHOULDER_TALONFX =19;// TODO:REALNUMBER
     public static final boolean SHOULDER_INVERTED = false;
     public static final boolean WRIST_INVERTED = false; 
     public static final int WRIST_DUTYENCODER = 4;

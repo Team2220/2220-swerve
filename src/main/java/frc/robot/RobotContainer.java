@@ -6,6 +6,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Swerve;
 import frc.twilight.Controller;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -22,6 +24,8 @@ public class RobotContainer {
   // private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   private final Swerve m_swerve;
+  private final Arm m_arm;
+  private final Intake m_intake;
 
   private final Controller m_controller = new Controller(0);
 
@@ -31,6 +35,8 @@ public class RobotContainer {
     configureButtonBindings();
 
     m_swerve = new Swerve(() -> m_controller.getLeftX() * 5, () -> m_controller.getLeftY() * 5, () -> m_controller.getRightX() * 5);
+    m_arm = new Arm();
+    m_intake = new Intake();
   }
 
   /**

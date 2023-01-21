@@ -4,13 +4,24 @@ import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
+import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Arm extends SubsystemBase {
+    private DutyCycleEncoder wristEncoder = new DutyCycleEncoder(Constants.WRIST_DUTYENCODER);
+    private DutyCycleEncoder armEncoder = new DutyCycleEncoder(Constants.SHOULDER_DUTYENCODER);
 
     private TalonFX wrist = new TalonFX(Constants.WRIST_TALONFX);
     private TalonFX shoulder = new TalonFX(Constants.SHOULDER_TALONFX);
+
+    ShuffleboardTab arm = Shuffleboard.getTab("arm");
+    GenericEntry shoulderSB = arm.add("shoulder angle", 0).getEntry();
+    GenericEntry wristSB = arm.add("wrist angle", 0).getEntry();
 
     public Arm() {
         wrist.configVoltageCompSaturation(10);
@@ -42,6 +53,10 @@ public class Arm extends SubsystemBase {
     }
 
     // @Override
-    // public class Arm periodic();
+    public void periodic() {
+        shoulderSB.setDouble(wristEncoder.getAbsolutePosition());
+        wristSB.setDouble(armEncoder.getAbsolutePosition());
+
+    }
 
 }

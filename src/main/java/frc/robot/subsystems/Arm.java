@@ -16,10 +16,10 @@ import frc.robot.Constants;
 public class Arm extends SubsystemBase {
     private DutyCycleEncoder wristEncoder = new DutyCycleEncoder(Constants.WRIST_DUTYENCODER);
     private DutyCycleEncoder shoulderEncoder = new DutyCycleEncoder(Constants.SHOULDER_DUTYENCODER);
-       
+
     private TalonFX wrist = new TalonFX(Constants.WRIST_TALONFX);
     private TalonFX shoulder = new TalonFX(Constants.SHOULDER_TALONFX);
-   
+
     ShuffleboardTab arm = Shuffleboard.getTab("arm");
     GenericEntry shoulderSB = arm.add("shoulder angle", 0).getEntry();
     GenericEntry wristSB = arm.add("wrist angle", 0).getEntry();
@@ -27,7 +27,7 @@ public class Arm extends SubsystemBase {
     public Arm() {
         wrist.configAllSettings(new TalonFXConfiguration());
         shoulder.configAllSettings(new TalonFXConfiguration());
-        
+
         wrist.configVoltageCompSaturation(12);
         shoulder.configVoltageCompSaturation(12);
 
@@ -50,10 +50,15 @@ public class Arm extends SubsystemBase {
         wrist.config_kI(0, 0);
         wrist.config_kD(0, 0);
 
-        
         shoulder.config_kP(0, 0);
         shoulder.config_kI(0, 0);
         shoulder.config_kD(0, 0);
+
+        double wristOffset = getWristPosition() / (Constants.WRIST_GEAR_RATIO) * (Constants.TALONFX_ENCODER_TICKS);
+        wrist.setSelectedSensorPosition(wristOffset);
+
+          double shoulderOffset = getShoulderPosition() / (Constants.SHOULDER_GEAR_RATIO) * (Constants.TALONFX_ENCODER_TICKS);
+        wrist.setSelectedSensorPosition(shoulderOffset);
     }
 
     public void setWristPercentOutput(double value) {
@@ -72,13 +77,10 @@ public class Arm extends SubsystemBase {
         return wristEncoder.getAbsolutePosition() - Constants.WRIST_ENCODER_OFFSET;
     }
 
-    
-
-     @Override
-     public void periodic() {
+    @Override
+    public void periodic() {
         shoulderSB.setDouble(getShoulderPosition());
         wristSB.setDouble(getWristPosition());
-     }
-
+    }
 
 }

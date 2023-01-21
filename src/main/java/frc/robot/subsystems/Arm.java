@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.networktables.GenericEntry;
@@ -23,6 +24,9 @@ public class Arm extends SubsystemBase {
         wrist.configVoltageCompSaturation(10);
         shoulder.configVoltageCompSaturation(10);
 
+        wrist.setInverted(Constants.WRIST_INVERTED);
+        shoulder.setInverted(Constants.SHOULDER_INVERTED);
+
         SupplyCurrentLimitConfiguration supplyConfig = new SupplyCurrentLimitConfiguration();
         supplyConfig.currentLimit = 10;
         supplyConfig.enable = true;
@@ -36,5 +40,16 @@ public class Arm extends SubsystemBase {
         wrist.configStatorCurrentLimit(config);
 
     }
+
+    public void setWristPercentOutput(double value) {
+        wrist.set(TalonFXControlMode.PercentOutput, value);
+    }
+
+    public void setShoulderPercentOutput(double value) {
+        shoulder.set(TalonFXControlMode.PercentOutput, value);
+    }
+
+    // @Override
+    // public class Arm periodic();
 
 }

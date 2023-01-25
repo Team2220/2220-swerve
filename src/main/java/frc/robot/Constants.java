@@ -12,21 +12,4 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public final class Constants {
-    public static final int INTAKE_LEFT_TALONFX = 103;// TODO:REALNUMBER
-    public static final int INTAKE_RIGHT_TALONFX = 103;// TODO:REALNUMBER
-    public static final boolean INTAKE_LEFT_INVERTED = false;
-    public static final boolean INTAKE_RIGHT_INVERTED = false;
-
-    public static final int WRIST_TALONFX = 20;
-    public static final int SHOULDER_TALONFX =19;
-    public static final boolean SHOULDER_INVERTED = false;
-    public static final boolean WRIST_INVERTED = false; 
-    public static final int WRIST_DUTYENCODER = 8;
-    public static final int SHOULDER_DUTYENCODER = 9;
-    public static final double WRIST_ENCODER_OFFSET = 0.0;
-    public static final double SHOULDER_ENCODER_OFFSET = 0.0;
-    public static final double SHOULDER_GEAR_RATIO = (5.0 / 1.0) * (5.0 / 1.0) * (4.0 / 1.0) * (15.0 / 54.0);
-    public static final double WRIST_GEAR_RATIO = (5.0 / 1.0) * (5.0 / 1.0) * (5.0 / 1.0);
-    public static final double TALONFX_ENCODER_TICKS = 2048;
-}
+public final class Constants {}

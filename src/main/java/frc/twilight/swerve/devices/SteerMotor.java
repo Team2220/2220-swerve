@@ -10,9 +10,9 @@ import frc.twilight.swerve.config.ModuleConfig;
 import frc.twilight.swerve.config.PIDconfig;
 import frc.twilight.tunables.TunableDouble;
 
-public class SteerMotor {    
+public class SteerMotor {
     private static final int TIMOUT_MS = 10;
-     
+    
     private final TalonFX motor;
     public static final double TICKS_PER_REVOLUTION = 2048;
     public static final double ANGLE_UNITS_PER_ROTATION = 360;

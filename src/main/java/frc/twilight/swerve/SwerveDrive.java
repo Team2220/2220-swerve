@@ -1,10 +1,12 @@
 package frc.twilight.swerve;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.twilight.helpfulThings.Angles;
 import frc.twilight.swerve.config.CANidConfig;
 import frc.twilight.swerve.config.GeneralConfig;
 import frc.twilight.swerve.config.ModuleConfig;
+import frc.twilight.swerve.config.PIDconfig;
 import frc.twilight.swerve.devices.Gyro;
 import frc.twilight.swerve.vectors.DriveVector;
 import frc.twilight.swerve.vectors.Position;
@@ -18,6 +20,12 @@ public class SwerveDrive {
     private final SwerveModule backRight;
 
     private final Gyro gyro = new Gyro();
+
+    private PIDController gyroPID = new PIDController(
+        PIDconfig.DT_GYRO_P.getValue(), 
+        PIDconfig.DT_GYRO_I.getValue(), 
+        PIDconfig.DT_GYRO_D.getValue()
+    );
 
     private double odoLastCheck = -1;
     private Position odoPosition;
@@ -58,6 +66,13 @@ public class SwerveDrive {
     }
 
     public void setDrive(DriveVector vector) {
+        gyroPID.setP(PIDconfig.DT_GYRO_P.getValue());
+        gyroPID.setI(PIDconfig.DT_GYRO_I.getValue());
+        gyroPID.setD(PIDconfig.DT_GYRO_D.getValue());
+
+        gyroPID.setSetpoint(vector.getRcw());
+        vector.setRcw(gyroPID.calculate(gyro.getAngleSpeed()) + PIDconfig.DT_GYRO_F.getValue() * vector.getRcw());
+
         vector.zeroDirection(gyro.getAngle());
         
         // vector.controlVel();

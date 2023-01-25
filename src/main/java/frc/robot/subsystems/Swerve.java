@@ -9,6 +9,7 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.twilight.swerve.SwerveDrive;
 import frc.twilight.swerve.vectors.DriveVector;
+import frc.twilight.swerve.vectors.Position;
 
 
 public class Swerve extends SubsystemBase {
@@ -39,6 +40,10 @@ public class Swerve extends SubsystemBase {
 
   public void zeroGyro() {
     swerve.zeroGyro();
+  }
+
+  public Position getOdo() {
+    return swerve.getOdo();
   }
 
   @Override

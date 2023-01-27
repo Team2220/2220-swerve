@@ -14,8 +14,8 @@ public class SwerveModule {
 
     private final double steerOffset;
 
-    private final double angleRatio = ModuleConfig.DT_STEER_GEAR_RATIO;
-    private final double velocityRatio = ModuleConfig.DT_WHEEL_DIAMETER * ModuleConfig.DT_DRIVE_GEAR_RATIO / Math.PI;
+    private final double angleRatio = 1 / ModuleConfig.DT_STEER_GEAR_RATIO;
+    private final double velocityRatio = (ModuleConfig.DT_WHEEL_DIAMETER * Math.PI) / ModuleConfig.DT_DRIVE_GEAR_RATIO * 60;
 
     public SwerveModule(int driveMotorCanID, int steerMotorCanID, int steerEncoderAnalogPort, double steerOffset) {
         steerMotor = new SteerMotor(steerMotorCanID);
@@ -30,19 +30,19 @@ public class SwerveModule {
     public void set(WheelVector set) {
         set = Angles.optimizeWheel(get(), set);
 
-        double angle = set.getAngle() / angleRatio;
+        double angle = set.getAngle() * angleRatio;
         steerMotor.setAngle(angle);
 
-        double speed = set.getVelocity() / velocityRatio;
+        double speed = set.getVelocity() * velocityRatio;
         driveMotor.setRPM(speed);
     }
 
     public WheelVector get() {
         WheelVector out = new WheelVector(0, 0);
-        double speed = driveMotor.getRPM() * velocityRatio;
+        double speed = driveMotor.getRPM() / velocityRatio;
         out.setVelocity(speed);
 
-        double angle = steerMotor.getAngle() * angleRatio;
+        double angle = steerMotor.getAngle() / angleRatio;
         out.setAngle(angle);
 
         return out;

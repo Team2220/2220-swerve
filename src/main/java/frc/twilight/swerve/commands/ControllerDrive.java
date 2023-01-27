@@ -2,9 +2,9 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.twilight.swerve.commands;
 
-import frc.robot.subsystems.Swerve;
+import frc.twilight.swerve.subsystems.Swerve;
 import frc.twilight.swerve.vectors.DriveVector;
 
 import java.util.function.DoubleSupplier;

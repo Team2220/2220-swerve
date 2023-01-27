@@ -18,7 +18,6 @@ public class PIDconfig {
     public static final TunableDouble DT_STEER_P = new TunableDouble("DT_STEER_P", 0.1, SHUFFLEBOARD_VALUES_ENABLED);
     public static final TunableDouble DT_STEER_I = new TunableDouble("DT_STEER_I", 0, SHUFFLEBOARD_VALUES_ENABLED);
     public static final TunableDouble DT_STEER_D = new TunableDouble("DT_STEER_D", 0.2, SHUFFLEBOARD_VALUES_ENABLED);
-    public static final TunableDouble DT_STEER_F = new TunableDouble("DT_STEER_F", 0, SHUFFLEBOARD_VALUES_ENABLED);
 
 
 
@@ -26,11 +25,17 @@ public class PIDconfig {
     public static final TunableDouble DT_AUTO_P = new TunableDouble("DT_AUTO_P", 0, SHUFFLEBOARD_VALUES_ENABLED);
     public static final TunableDouble DT_AUTO_I = new TunableDouble("DT_AUTO_I", 0, SHUFFLEBOARD_VALUES_ENABLED);
     public static final TunableDouble DT_AUTO_D = new TunableDouble("DT_AUTO_D", 0, SHUFFLEBOARD_VALUES_ENABLED);
-    public static final TunableDouble DT_AUTO_F = new TunableDouble("DT_AUTO_F", 0, SHUFFLEBOARD_VALUES_ENABLED);
 
     
-    
-    // Gyro stabilize PID constants
+
+    // Gyro autonomous PID constants
+    public static final TunableDouble DT_AUTO_ROT_P = new TunableDouble("DT_AUTO_ROT_P", 0, SHUFFLEBOARD_VALUES_ENABLED);
+    public static final TunableDouble DT_AUTO_ROT_I = new TunableDouble("DT_AUTO_ROT_I", 0, SHUFFLEBOARD_VALUES_ENABLED);
+    public static final TunableDouble DT_AUTO_ROT_D = new TunableDouble("DT_AUTO_ROT_D", 0, SHUFFLEBOARD_VALUES_ENABLED);
+
+
+
+    // Gyro velocity PID constants
     public static final TunableDouble DT_GYRO_P = new TunableDouble("DT_GYRO_P", 0, SHUFFLEBOARD_VALUES_ENABLED);
     public static final TunableDouble DT_GYRO_I = new TunableDouble("DT_GYRO_I", 0, SHUFFLEBOARD_VALUES_ENABLED);
     public static final TunableDouble DT_GYRO_D = new TunableDouble("DT_GYRO_D", 0, SHUFFLEBOARD_VALUES_ENABLED);

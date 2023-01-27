@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.ControllerDrive;
 import frc.robot.subsystems.Swerve;
 import frc.twilight.Controller;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -21,16 +22,16 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   // private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-  private final Swerve m_swerve;
+  private final Swerve m_swerve = new Swerve();
 
   private final Controller m_controller = new Controller(0);
+
+  private final ControllerDrive m_controllerDrive = new ControllerDrive(m_swerve, m_controller::getLeftX, m_controller::getLeftY, m_controller::getRightX);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-
-    m_swerve = new Swerve(() -> m_controller.getLeftX() * 5, () -> m_controller.getLeftY() * 5, () -> m_controller.getRightX() * 180);
   }
 
   /**
@@ -41,6 +42,10 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // new Button(m_controller::getAButton).whenPressed(m_swerve::zeroGyro);
+  }
+
+  public Command getTeleopCommand() {
+    return m_controllerDrive;
   }
 
   /**

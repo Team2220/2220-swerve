@@ -4,23 +4,35 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Swerve;
+import frc.twilight.swerve.vectors.DriveVector;
+
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class ExampleCommand extends CommandBase {
+public class ControllerDrive extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final ExampleSubsystem m_subsystem;
+  private final Swerve m_subsystem;
+
+  public DoubleSupplier fwd;
+  public DoubleSupplier str;
+  public DoubleSupplier rot;
 
   /**
-   * Creates a new ExampleCommand.
+   * Creates a new GoToCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ExampleCommand(ExampleSubsystem subsystem) {
+  public ControllerDrive(Swerve subsystem, DoubleSupplier x, DoubleSupplier y, DoubleSupplier rcw) {
     m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
+
+    fwd = y;
+    str = x;
+    rot = rcw;
   }
 
   // Called when the command is initially scheduled.
@@ -29,11 +41,19 @@ public class ExampleCommand extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    m_subsystem.setDrive(
+      new DriveVector(str.getAsDouble(), fwd.getAsDouble(), rot.getAsDouble())
+        .maxVel()
+        .maxAccel()
+    );
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_subsystem.setDrive(0, 0, 0);
+  }
 
   // Returns true when the command should end.
   @Override

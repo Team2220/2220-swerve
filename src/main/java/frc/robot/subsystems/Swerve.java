@@ -4,8 +4,6 @@
 
 package frc.robot.subsystems;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.twilight.swerve.SwerveDrive;
 import frc.twilight.swerve.vectors.DriveVector;
@@ -15,26 +13,21 @@ import frc.twilight.swerve.vectors.Position;
 public class Swerve extends SubsystemBase {
   private SwerveDrive swerve = new SwerveDrive();
 
-  private DoubleSupplier x_axis;
-  private DoubleSupplier y_axis;
-
-  private DoubleSupplier rotation;
-
   int time = 0;
 
   /** Creates a new ExampleSubsystem. */
-  public Swerve(DoubleSupplier x, DoubleSupplier y, DoubleSupplier rot) {
-    x_axis = x;
-    y_axis = y;
-    rotation = rot;
+  public Swerve() {}
+
+  public void setDrive(double x, double y, double rot) {
+    swerve.setDrive(new DriveVector(y, x, rot));
+  }
+
+  public void setDrive(DriveVector vector) {
+    swerve.setDrive(vector);
   }
 
   @Override
   public void periodic() {
-    DriveVector out = new DriveVector(-y_axis.getAsDouble(), -x_axis.getAsDouble(), rotation.getAsDouble());
-
-    swerve.setDrive(out);
-
     swerve.updateOdo();
   }
 

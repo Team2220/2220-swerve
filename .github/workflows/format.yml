@@ -1,27 +1,17 @@
-name: Auto Format Workflow
-run-name: Format Code
-on: [push]
+name: Format
+
+on:
+  push:
+    branches: [ main ]
+
 jobs:
-  Format-Java-Code:
+
+  formatting:
     runs-on: ubuntu-latest
     steps:
-      - name: Google Java Format
-        # You may pin to the exact commit or the version.
-        # uses: axel-op/googlejavaformat-action@fe78db8a90171b6a836449f8d0e982d5d71e5c5a
-        uses: axel-op/googlejavaformat-action@v3.6.0
+      - uses: actions/checkout@v3 # v2 minimum required
+      - uses: axel-op/googlejavaformat-action@v3
         with:
-          # Arguments for the Google Java Format executable
-          args: --set-exit-if-changed --dry-run # optional, default is --replace
-          # Pattern to match the files to be formatted
-          #files: # optional, default is **/*.java
-          # Pattern to match the files to be ignored by this action
-          #files-excluded: # optional
-          # Set to true to not commit the changes
-          #skipCommit: # optional, default is false
-          # Version of Google Java Format to use
-          #version: # optional
-          # Recommended on MacOS machines
-          #githubToken: # optional
-          # Commit message
-          commitMessage: Java Format # optional, default is Google Java Format
-
+          args: "--skip-sorting-imports --replace"
+          # Recommended if you use MacOS:
+          # github-token: ${{ secrets.GITHUB_TOKEN }}

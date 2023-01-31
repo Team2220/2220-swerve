@@ -1,0 +1,10 @@
+name: Auto Format Workflow
+run-name: Format Code
+on: [push]
+jobs:
+  Format-Java-Code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Google Java Format
+        uses: axel-op/googlejavaformat-action@v3.6.0
+

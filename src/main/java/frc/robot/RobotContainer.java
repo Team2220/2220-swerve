@@ -8,9 +8,13 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.twilight.Controller;
 import frc.twilight.swerve.commands.ControllerDrive;
+import frc.twilight.swerve.commands.GoToCommand;
+import frc.twilight.swerve.commands.ResetGyro;
 import frc.twilight.swerve.subsystems.Swerve;
+import frc.twilight.swerve.vectors.Position;
 import edu.wpi.first.wpilibj2.command.Command;
 // import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -26,7 +30,7 @@ public class RobotContainer {
 
   private final Controller m_controller = new Controller(0);
 
-  private final ControllerDrive m_controllerDrive = new ControllerDrive(m_swerve, m_controller::getLeftX, m_controller::getLeftY, m_controller::getRightX);
+  private final ControllerDrive m_controllerDrive = new ControllerDrive(m_swerve, () -> m_controller.getLeftX(), () -> m_controller.getLeftY(), () -> m_controller.getRightX());
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -41,7 +45,11 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    // new Button(m_controller::getAButton).whenPressed(m_swerve::zeroGyro);
+    new Trigger(() -> m_controller.getButtonPressed(Controller.Button.A)).onTrue(new ResetGyro(m_swerve));;
+
+    new Trigger(() -> m_controller.getButtonPressed(Controller.Button.X)).onTrue(new GoToCommand(m_swerve, new Position(0, 0, 0)));
+    new Trigger(() -> m_controller.getButtonPressed(Controller.Button.Y)).onTrue(m_controllerDrive);
+
   }
 
   public Command getTeleopCommand() {

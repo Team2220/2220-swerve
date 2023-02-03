@@ -1,6 +1,6 @@
 package frc.twilight.swerve.vectors;
 
-import edu.wpi.first.math.filter.SlewRateLimiter;
+import frc.twilight.helpfulThings.SlewRateLimiter;
 import frc.twilight.swerve.config.GeneralConfig;
 
 public class DriveVector {
@@ -11,9 +11,9 @@ public class DriveVector {
     // Rotational velocity deg/s
     private double rcw;
 
-    SlewRateLimiter fwdLimiter = new SlewRateLimiter(GeneralConfig.DT_MAX_ACCEL);
-    SlewRateLimiter strLimiter = new SlewRateLimiter(GeneralConfig.DT_MAX_ACCEL);
-    SlewRateLimiter rcwLimiter = new SlewRateLimiter(GeneralConfig.DT_MAX_ROT_ACCEL);
+    private static SlewRateLimiter fwdLimiter = new SlewRateLimiter(GeneralConfig.DT_MAX_ACCEL.getValue());
+    private static SlewRateLimiter strLimiter = new SlewRateLimiter(GeneralConfig.DT_MAX_ACCEL.getValue());
+    private static SlewRateLimiter rcwLimiter = new SlewRateLimiter(GeneralConfig.DT_MAX_ROT_ACCEL.getValue());
 
     public DriveVector(double fwd, double str, double rcw) {
         this.fwd = fwd;
@@ -56,24 +56,24 @@ public class DriveVector {
     }
 
     public DriveVector maxVel() {
-        if (Math.abs(fwd) > GeneralConfig.DT_MAX_VEL) {
-            double ratio = GeneralConfig.DT_MAX_VEL / Math.abs(fwd);
+        if (Math.abs(fwd) > GeneralConfig.DT_MAX_VEL.getValue()) {
+            double ratio = GeneralConfig.DT_MAX_VEL.getValue() / Math.abs(fwd);
 
             fwd *= ratio;
             str *= ratio;
         }
 
-        if (Math.abs(str) > GeneralConfig.DT_MAX_VEL) {
-            double ratio = GeneralConfig.DT_MAX_VEL / Math.abs(str);
+        if (Math.abs(str) > GeneralConfig.DT_MAX_VEL.getValue()) {
+            double ratio = GeneralConfig.DT_MAX_VEL.getValue() / Math.abs(str);
 
             fwd *= ratio;
             str *= ratio;
         }
 
-        if (rcw > GeneralConfig.DT_MAX_ROT_VEL) {
-            rcw = GeneralConfig.DT_MAX_ROT_VEL;
-        } else if (rcw < -GeneralConfig.DT_MAX_ROT_VEL) {
-            rcw = -GeneralConfig.DT_MAX_ROT_VEL;
+        if (rcw > GeneralConfig.DT_MAX_ROT_VEL.getValue()) {
+            rcw = GeneralConfig.DT_MAX_ROT_VEL.getValue();
+        } else if (rcw < -GeneralConfig.DT_MAX_ROT_VEL.getValue()) {
+            rcw = -GeneralConfig.DT_MAX_ROT_VEL.getValue();
         }
 
         return this;
@@ -104,10 +104,20 @@ public class DriveVector {
     }
 
     public DriveVector maxAccel() {
+        fwdLimiter.setRateLimit(GeneralConfig.DT_MAX_ACCEL.getValue());
+        strLimiter.setRateLimit(GeneralConfig.DT_MAX_ACCEL.getValue());
+        rcwLimiter.setRateLimit(GeneralConfig.DT_MAX_ROT_ACCEL.getValue());
+
         fwd = fwdLimiter.calculate(fwd);
         str = strLimiter.calculate(str);
         rcw = rcwLimiter.calculate(rcw);
 
         return this;
+    }
+
+    public static void resetAccel() {
+        fwdLimiter.reset(0);
+        strLimiter.reset(0);
+        rcwLimiter.reset(0);
     }
 }

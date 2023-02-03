@@ -90,7 +90,7 @@ public class SwerveDrive {
 
     public DriveVector getDrive() {
         DriveVector out = VectorFactory.driveVectorFromWheelVectors(frontRight.get(), frontLeft.get(), backRight.get(), backLeft.get());
-        out.zeroDirection(-gyro.getAngle());
+        out.zeroDirection(gyro.getAngle());
 
         return out;
     }

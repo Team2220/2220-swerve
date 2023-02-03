@@ -18,18 +18,26 @@ public class GoToCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Swerve m_subsystem;
 
-  private final TrapezoidProfile.Constraints constraints = new TrapezoidProfile.Constraints(GeneralConfig.DT_MAX_VEL, GeneralConfig.DT_MAX_ACCEL);
-  private final TrapezoidProfile.Constraints constraintsRot = new TrapezoidProfile.Constraints(GeneralConfig.DT_MAX_ROT_VEL, GeneralConfig.DT_MAX_ROT_ACCEL);
+  private final TrapezoidProfile.Constraints constraints = new TrapezoidProfile.Constraints(GeneralConfig.DT_MAX_VEL.getValue(), GeneralConfig.DT_MAX_ACCEL.getValue());
+  private final TrapezoidProfile.Constraints constraintsRot = new TrapezoidProfile.Constraints(GeneralConfig.DT_MAX_ROT_VEL.getValue(), GeneralConfig.DT_MAX_ROT_ACCEL.getValue());
 
   private TrapezoidProfile.State goalX = new TrapezoidProfile.State();
   private TrapezoidProfile.State goalY = new TrapezoidProfile.State();
   private TrapezoidProfile.State goalRot = new TrapezoidProfile.State();
 
+  private TrapezoidProfile.State setpointX = new TrapezoidProfile.State();
+  private TrapezoidProfile.State setpointY = new TrapezoidProfile.State();
+  private TrapezoidProfile.State setpointRot = new TrapezoidProfile.State();
+
+  private TrapezoidProfile profileX;
+  private TrapezoidProfile profileY;
+  private TrapezoidProfile profileRot;
+
   private PIDController pidX = new PIDController(PIDconfig.DT_AUTO_P.getValue(), PIDconfig.DT_AUTO_I.getValue(), PIDconfig.DT_AUTO_D.getValue());
   private PIDController pidY = new PIDController(PIDconfig.DT_AUTO_P.getValue(), PIDconfig.DT_AUTO_I.getValue(), PIDconfig.DT_AUTO_D.getValue());
   private PIDController pidRot = new PIDController(PIDconfig.DT_AUTO_ROT_P.getValue(), PIDconfig.DT_AUTO_ROT_I.getValue(), PIDconfig.DT_AUTO_ROT_D.getValue());
 
-  private final double kDt = 0.02;
+  private double kDt = 0;
 
   /**
    * Creates a new GoToCommand.
@@ -44,34 +52,49 @@ public class GoToCommand extends CommandBase {
     goalX = new TrapezoidProfile.State(goal.getX(), 0);
     goalY = new TrapezoidProfile.State(goal.getY(), 0);
     goalRot = new TrapezoidProfile.State(goal.getAngle(), 0);
+
+    pidX.setTolerance(0.05);
+    pidY.setTolerance(0.05);
+    pidRot.setTolerance(5);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    Position currentPos = m_subsystem.getOdo();
+    DriveVector currentVec = m_subsystem.getDrive();
+    setpointX = new TrapezoidProfile.State(currentPos.getX(), currentVec.getStr());
+    setpointY = new TrapezoidProfile.State(currentPos.getY(), currentVec.getFwd());
+    setpointRot = new TrapezoidProfile.State(currentPos.getAngle(), currentVec.getRcw());
+
+    profileX = new TrapezoidProfile(constraints, goalX, setpointX);
+    profileY = new TrapezoidProfile(constraints, goalY, setpointY);
+    profileRot = new TrapezoidProfile(constraintsRot, goalRot, setpointRot);
+
+    kDt = 0;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Position currentPos = m_subsystem.getOdo();
-    DriveVector currentVec = m_subsystem.getDrive();
-    TrapezoidProfile.State currentX = new TrapezoidProfile.State(currentPos.getX(), currentVec.getStr());
-    TrapezoidProfile.State currentY = new TrapezoidProfile.State(currentPos.getY(), currentVec.getFwd());
-    TrapezoidProfile.State currentRot = new TrapezoidProfile.State(currentPos.getAngle(), currentVec.getRcw());
-
-    TrapezoidProfile profileX = new TrapezoidProfile(constraints, goalX, currentX);
-    TrapezoidProfile profileY = new TrapezoidProfile(constraints, goalY, currentY);
-    TrapezoidProfile profileRot = new TrapezoidProfile(constraintsRot, goalRot, currentRot);
+    kDt += 0.02;
 
     double xPos = profileX.calculate(kDt).position;
     double yPos = profileY.calculate(kDt).position;
     double rotPos = profileRot.calculate(kDt).position;
 
+    // Update PID
+    pidX.setPID(PIDconfig.DT_AUTO_P.getValue(), PIDconfig.DT_AUTO_I.getValue(), PIDconfig.DT_AUTO_D.getValue());
+    pidY.setPID(PIDconfig.DT_AUTO_P.getValue(), PIDconfig.DT_AUTO_I.getValue(), PIDconfig.DT_AUTO_D.getValue());
+    pidRot.setPID(PIDconfig.DT_AUTO_ROT_P.getValue(), PIDconfig.DT_AUTO_ROT_I.getValue(), PIDconfig.DT_AUTO_ROT_D.getValue());
+
+    Position currentPos = m_subsystem.getOdo();
+
     double xVel = pidX.calculate(currentPos.getX(), xPos);
     double yVel = pidY.calculate(currentPos.getY(), yPos);
     double rotVel = pidRot.calculate(currentPos.getAngle(), rotPos);
 
-    m_subsystem.setDrive(new DriveVector(xVel, yVel, rotVel));
+    m_subsystem.setDrive(new DriveVector(yVel, xVel, rotVel).zeroDirection(currentPos.getAngle()).maxVel());
   }
 
   // Called once the command ends or is interrupted.
@@ -81,8 +104,6 @@ public class GoToCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return pidX.atSetpoint() && pidY.atSetpoint() && pidRot.atSetpoint();
   }
-
-
 }

@@ -55,6 +55,10 @@ public class GoToCommand extends CommandBase {
 
   private double kDt = 0;
 
+  private boolean xDone = false;
+  private boolean yDone = false;
+  private boolean rotDone = false;
+
   /**
    * Creates a new GoToCommand.
    *
@@ -68,10 +72,6 @@ public class GoToCommand extends CommandBase {
     goalX = new TrapezoidProfile.State(goal.getX(), 0);
     goalY = new TrapezoidProfile.State(goal.getY(), 0);
     goalRot = new TrapezoidProfile.State(goal.getAngle(), 0);
-
-    pidX.setTolerance(0.05);
-    pidY.setTolerance(0.05);
-    pidRot.setTolerance(2.5);
   }
 
   // Called when the command is initially scheduled.
@@ -120,7 +120,11 @@ public class GoToCommand extends CommandBase {
     double rotVel = pidRot.calculate(currentPos.getAngle(), rotPos);
 
     m_subsystem.setDrive(
-        new DriveVector(yVel, xVel, rotVel).zeroDirection(currentPos.getAngle()).maxVel());
+        new DriveVector(yVel, xVel, rotVel).maxVel());
+
+    xDone = Math.abs(currentPos.getX() - goalX.position) < 0.05;
+    yDone = Math.abs(currentPos.getY() - goalY.position) < 0.05;
+    rotDone = Math.abs(currentPos.getAngle() - goalRot.position) < 2.5;
   }
 
   // Called once the command ends or is interrupted.
@@ -132,12 +136,6 @@ public class GoToCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return pidX.atSetpoint()
-        && pidY.atSetpoint()
-        && pidRot.atSetpoint()
-        && profileX.isFinished(kDt)
-        && profileY.isFinished(kDt)
-        && profileRot.isFinished(kDt);
-    // return false;
+    return xDone && yDone && rotDone;
   }
 }

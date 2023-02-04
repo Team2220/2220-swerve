@@ -104,10 +104,10 @@ public class SwerveDrive {
           .addNumber("BR Vel", () -> backRight.get().getVelocity())
           .withPosition(2, 3);
 
-      Shuffleboard.getTab("Swerve").addNumber("X Pos", () -> odoPosition.getX()).withPosition(4, 0);
-      Shuffleboard.getTab("Swerve").addNumber("Y Pos", () -> odoPosition.getY()).withPosition(4, 0);
+      Shuffleboard.getTab("Swerve").addNumber("X Pos", () -> odoPosition.getX()).withPosition(4, 4);
+      Shuffleboard.getTab("Swerve").addNumber("Y Pos", () -> odoPosition.getY()).withPosition(5, 4);
 
-      Shuffleboard.getTab("Swerve").addNumber("Gyro", () -> gyro.getAngle()).withPosition(3, 0);
+      Shuffleboard.getTab("Swerve").addNumber("Gyro", () -> gyro.getAngle()).withPosition(6, 4);
     }
   }
 

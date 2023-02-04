@@ -15,11 +15,11 @@ public final class GeneralConfig {
   public static final double DT_START_X = 0;
   public static final double DT_START_Y = 0;
 
-  public static final boolean SWERVE_SHUFFLEBOARD_ENABLED = true;
+  public static final boolean SWERVE_SHUFFLEBOARD_ENABLED = false;
 
   // Velocity restrictions m/s
   public static final TunableDouble DT_MAX_VEL =
-      new TunableDouble("DT_MAX_VEL", 10, SWERVE_SHUFFLEBOARD_ENABLED, "Swerve").setSpot(4, 0);
+      new TunableDouble("DT_MAX_VEL", 3, SWERVE_SHUFFLEBOARD_ENABLED, "Swerve").setSpot(4, 0);
 
   // Acceleration restrictions m/s2
   public static final TunableDouble DT_MAX_ACCEL =

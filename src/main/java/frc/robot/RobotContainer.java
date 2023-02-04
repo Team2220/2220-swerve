@@ -6,7 +6,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.auto.TestPath;
 import frc.twilight.Controller;
 import frc.twilight.swerve.commands.ControllerDrive;
 import frc.twilight.swerve.commands.ResetGyro;

@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.twilight.swerve.SwerveDrive;
 import frc.twilight.swerve.vectors.DriveVector;
 
+
 public class Swerve extends SubsystemBase {
   private SwerveDrive swerve = new SwerveDrive();
 
@@ -29,8 +30,7 @@ public class Swerve extends SubsystemBase {
 
   @Override
   public void periodic() {
-    DriveVector out =
-        new DriveVector(-y_axis.getAsDouble(), -x_axis.getAsDouble(), rotation.getAsDouble());
+    DriveVector out = new DriveVector(-y_axis.getAsDouble(), -x_axis.getAsDouble(), rotation.getAsDouble());
 
     swerve.setDrive(out);
 

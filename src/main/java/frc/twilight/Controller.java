@@ -4,29 +4,23 @@ import edu.wpi.first.wpilibj.XboxController;
 
 /**
  * Controller class for Xbox controllers on the FRC robot.
- * 
- * This class provides an easy-to-use interface for interacting with an Xbox
- * controller
- * connected to the FRC robot. It provides methods for getting joystick values,
- * button states,
- * and button events (presses and releases). It also allows for setting a
- * deadband for joystick
- * values to eliminate noise.
- * 
+ *
+ * <p>This class provides an easy-to-use interface for interacting with an Xbox controller connected
+ * to the FRC robot. It provides methods for getting joystick values, button states, and button
+ * events (presses and releases). It also allows for setting a deadband for joystick values to
+ * eliminate noise.
+ *
  * @author TeamTwilight
  */
 public class Controller {
   private final XboxController controller;
 
-  /**
-   * The deadband value to use for joystick values.
-   * The default value is 0.2.
-   */
+  /** The deadband value to use for joystick values. The default value is 0.2. */
   private double deadzone = 0.2;
 
   /**
    * Creates a new instance of the Controller class.
-   * 
+   *
    * @param port The USB port number the controller is connected to.
    */
   public Controller(int port) {
@@ -35,7 +29,7 @@ public class Controller {
 
   /**
    * Gets the left X-axis joystick value.
-   * 
+   *
    * @return the left X-axis joystick value, with deadband applied.
    */
   public double getLeftX() {
@@ -44,7 +38,7 @@ public class Controller {
 
   /**
    * Gets the left Y-axis joystick value.
-   * 
+   *
    * @return the left Y-axis joystick value, with deadband applied.
    */
   public double getLeftY() {
@@ -53,7 +47,7 @@ public class Controller {
 
   /**
    * Gets the right X-axis joystick value.
-   * 
+   *
    * @return the right X-axis joystick value, with deadband applied.
    */
   public double getRightX() {
@@ -62,7 +56,7 @@ public class Controller {
 
   /**
    * Gets the right Y-axis joystick value.
-   * 
+   *
    * @return the right Y-axis joystick value, with deadband applied.
    */
   public double getRightY() {
@@ -71,7 +65,7 @@ public class Controller {
 
   /**
    * Sets the deadband value to use for joystick values.
-   * 
+   *
    * @param set the deadband value to use.
    */
   public void setDeadband(double set) {
@@ -80,7 +74,7 @@ public class Controller {
 
   /**
    * Gets the state of a button.
-   * 
+   *
    * @param button the button to check
    * @return true if the button is pressed, false otherwise
    */
@@ -120,9 +114,8 @@ public class Controller {
   }
 
   /**
-   * Gets the state of a button press event.
-   * Note: does not work for POV buttons, will return false.
-   * 
+   * Gets the state of a button press event. Note: does not work for POV buttons, will return false.
+   *
    * @param button the button to check
    * @return true if the button was just pressed, false otherwise
    */
@@ -154,9 +147,9 @@ public class Controller {
   }
 
   /**
-   * Gets the state of a button release event.
-   * Note: does not work for POV buttons, will return false.
-   * 
+   * Gets the state of a button release event. Note: does not work for POV buttons, will return
+   * false.
+   *
    * @param button the button to check
    * @return true if the button was just released, false otherwise
    */
@@ -189,8 +182,8 @@ public class Controller {
 
   /**
    * Applies the deadband to a joystick value.
-   * 
-   * @param value    the joystick value to apply the deadband to
+   *
+   * @param value the joystick value to apply the deadband to
    * @param deadband the deadband value to use
    * @return the joystick value with the deadband applied
    */
@@ -206,9 +199,7 @@ public class Controller {
     }
   }
 
-  /**
-   * Enumeration of all buttons on an Xbox controller.
-   */
+  /** Enumeration of all buttons on an Xbox controller. */
   public enum Button {
     A,
     B,

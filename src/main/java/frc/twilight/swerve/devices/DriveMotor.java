@@ -1,6 +1,7 @@
 package frc.twilight.swerve.devices;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
@@ -67,6 +68,8 @@ public class DriveMotor {
     // Set voltage comp
     motor.configVoltageCompSaturation(10);
     motor.enableVoltageCompensation(true);
+
+    motor.setNeutralMode(NeutralMode.Brake);
   }
 
   public void setRPM(double rpm) {

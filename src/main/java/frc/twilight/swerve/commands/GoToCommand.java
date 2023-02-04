@@ -71,7 +71,7 @@ public class GoToCommand extends CommandBase {
 
     pidX.setTolerance(0.05);
     pidY.setTolerance(0.05);
-    pidRot.setTolerance(5);
+    pidRot.setTolerance(2.5);
   }
 
   // Called when the command is initially scheduled.

@@ -56,12 +56,6 @@ public class RobotContainer {
   private void configureButtonBindings() {
     new Trigger(() -> m_controller.getButtonPressed(Controller.Button.START))
         .onTrue(new ResetGyro(m_swerve));
-
-    new Trigger(() -> m_controller.getButtonPressed(Controller.Button.X))
-        .onTrue(new TestPath(m_swerve));
-
-    new Trigger(() -> m_controller.getButtonPressed(Controller.Button.Y))
-        .onTrue(m_controllerDrive);
   }
 
   public Command getTeleopCommand() {

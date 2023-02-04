@@ -20,12 +20,10 @@ public class SteerMotor {
     private TunableDouble p = PIDconfig.DT_STEER_P;
     private TunableDouble i = PIDconfig.DT_STEER_I;
     private TunableDouble d = PIDconfig.DT_STEER_D;
-    private TunableDouble f = PIDconfig.DT_STEER_F;
 
     private double oldP = p.getValue();
     private double oldI = i.getValue();
     private double oldD = d.getValue();
-    private double oldF = f.getValue();
 
     public SteerMotor(int canID) {
         motor = new TalonFX(canID);
@@ -37,7 +35,7 @@ public class SteerMotor {
         motor.config_kP(0, p.getValue(), TIMOUT_MS);
         motor.config_kI(0, i.getValue(), TIMOUT_MS);
         motor.config_kD(0, d.getValue(), TIMOUT_MS);
-        motor.config_kF(0, f.getValue(), TIMOUT_MS);
+        motor.config_kF(0, 0, TIMOUT_MS);
 
         // Sets motor inversion
         motor.setInverted(ModuleConfig.DT_STEER_MOTOR_INVERTED);
@@ -88,11 +86,6 @@ public class SteerMotor {
         if (d.getValue() != oldD) {
             motor.config_kD(0, d.getValue(), TIMOUT_MS);
             oldD = d.getValue();
-        }
-
-        if (f.getValue() != oldF) {
-            motor.config_kF(0, f.getValue(), TIMOUT_MS);
-            oldF = f.getValue();
         }
     }
 

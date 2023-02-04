@@ -70,7 +70,7 @@ public class DriveMotor {
     }
 
     public void setRPM(double rpm) {
-        motor.set(ControlMode.Velocity, rpm * TICKS_PER_REVOLUTION / 600);
+        motor.set(ControlMode.Velocity, rpm * TICKS_PER_REVOLUTION / (60 * 10));
 
         // Update PID values if they have changed
         if (p.getValue() != oldP) {

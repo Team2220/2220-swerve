@@ -9,10 +9,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.auto.TestPath;
 import frc.twilight.Controller;
 import frc.twilight.swerve.commands.ControllerDrive;
-import frc.twilight.swerve.commands.GoToCommand;
 import frc.twilight.swerve.commands.ResetGyro;
 import frc.twilight.swerve.subsystems.Swerve;
-import frc.twilight.swerve.vectors.Position;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -33,7 +31,12 @@ public class RobotContainer {
 
   private final Controller m_controller = new Controller(0);
 
-  private final ControllerDrive m_controllerDrive = new ControllerDrive(m_swerve, () -> m_controller.getLeftX(), () -> m_controller.getLeftY(), () -> m_controller.getRightX());
+  private final ControllerDrive m_controllerDrive =
+      new ControllerDrive(
+          m_swerve,
+          () -> m_controller.getLeftX(),
+          () -> m_controller.getLeftY(),
+          () -> m_controller.getRightX());
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -51,11 +54,13 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new Trigger(() -> m_controller.getButtonPressed(Controller.Button.A)).onTrue(new ResetGyro(m_swerve));;
+    new Trigger(() -> m_controller.getButtonPressed(Controller.Button.A))
+        .onTrue(new ResetGyro(m_swerve));
+    ;
 
-    new Trigger(() -> m_controller.getButtonPressed(Controller.Button.X)).onTrue(new TestPath(m_swerve));
+    new Trigger(() -> m_controller.getButtonPressed(Controller.Button.X))
+        .onTrue(new TestPath(m_swerve));
     new Trigger(() -> m_controller.getButtonPressed(Controller.Button.Y)).onTrue(m_controllerDrive);
-
   }
 
   public Command getTeleopCommand() {

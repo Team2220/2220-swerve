@@ -18,8 +18,12 @@ public class GoToCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Swerve m_subsystem;
 
-  private final TrapezoidProfile.Constraints constraints = new TrapezoidProfile.Constraints(GeneralConfig.DT_MAX_VEL.getValue(), GeneralConfig.DT_MAX_ACCEL.getValue());
-  private final TrapezoidProfile.Constraints constraintsRot = new TrapezoidProfile.Constraints(GeneralConfig.DT_MAX_ROT_VEL.getValue(), GeneralConfig.DT_MAX_ROT_ACCEL.getValue());
+  private final TrapezoidProfile.Constraints constraints =
+      new TrapezoidProfile.Constraints(
+          GeneralConfig.DT_MAX_VEL.getValue(), GeneralConfig.DT_MAX_ACCEL.getValue());
+  private final TrapezoidProfile.Constraints constraintsRot =
+      new TrapezoidProfile.Constraints(
+          GeneralConfig.DT_MAX_ROT_VEL.getValue(), GeneralConfig.DT_MAX_ROT_ACCEL.getValue());
 
   private TrapezoidProfile.State goalX = new TrapezoidProfile.State();
   private TrapezoidProfile.State goalY = new TrapezoidProfile.State();
@@ -33,9 +37,21 @@ public class GoToCommand extends CommandBase {
   private TrapezoidProfile profileY;
   private TrapezoidProfile profileRot;
 
-  private PIDController pidX = new PIDController(PIDconfig.DT_AUTO_P.getValue(), PIDconfig.DT_AUTO_I.getValue(), PIDconfig.DT_AUTO_D.getValue());
-  private PIDController pidY = new PIDController(PIDconfig.DT_AUTO_P.getValue(), PIDconfig.DT_AUTO_I.getValue(), PIDconfig.DT_AUTO_D.getValue());
-  private PIDController pidRot = new PIDController(PIDconfig.DT_AUTO_ROT_P.getValue(), PIDconfig.DT_AUTO_ROT_I.getValue(), PIDconfig.DT_AUTO_ROT_D.getValue());
+  private PIDController pidX =
+      new PIDController(
+          PIDconfig.DT_AUTO_P.getValue(),
+          PIDconfig.DT_AUTO_I.getValue(),
+          PIDconfig.DT_AUTO_D.getValue());
+  private PIDController pidY =
+      new PIDController(
+          PIDconfig.DT_AUTO_P.getValue(),
+          PIDconfig.DT_AUTO_I.getValue(),
+          PIDconfig.DT_AUTO_D.getValue());
+  private PIDController pidRot =
+      new PIDController(
+          PIDconfig.DT_AUTO_ROT_P.getValue(),
+          PIDconfig.DT_AUTO_ROT_I.getValue(),
+          PIDconfig.DT_AUTO_ROT_D.getValue());
 
   private double kDt = 0;
 
@@ -84,9 +100,18 @@ public class GoToCommand extends CommandBase {
     double rotPos = profileRot.calculate(kDt).position;
 
     // Update PID
-    pidX.setPID(PIDconfig.DT_AUTO_P.getValue(), PIDconfig.DT_AUTO_I.getValue(), PIDconfig.DT_AUTO_D.getValue());
-    pidY.setPID(PIDconfig.DT_AUTO_P.getValue(), PIDconfig.DT_AUTO_I.getValue(), PIDconfig.DT_AUTO_D.getValue());
-    pidRot.setPID(PIDconfig.DT_AUTO_ROT_P.getValue(), PIDconfig.DT_AUTO_ROT_I.getValue(), PIDconfig.DT_AUTO_ROT_D.getValue());
+    pidX.setPID(
+        PIDconfig.DT_AUTO_P.getValue(),
+        PIDconfig.DT_AUTO_I.getValue(),
+        PIDconfig.DT_AUTO_D.getValue());
+    pidY.setPID(
+        PIDconfig.DT_AUTO_P.getValue(),
+        PIDconfig.DT_AUTO_I.getValue(),
+        PIDconfig.DT_AUTO_D.getValue());
+    pidRot.setPID(
+        PIDconfig.DT_AUTO_ROT_P.getValue(),
+        PIDconfig.DT_AUTO_ROT_I.getValue(),
+        PIDconfig.DT_AUTO_ROT_D.getValue());
 
     Position currentPos = m_subsystem.getOdo();
 
@@ -94,7 +119,8 @@ public class GoToCommand extends CommandBase {
     double yVel = pidY.calculate(currentPos.getY(), yPos);
     double rotVel = pidRot.calculate(currentPos.getAngle(), rotPos);
 
-    m_subsystem.setDrive(new DriveVector(yVel, xVel, rotVel).zeroDirection(currentPos.getAngle()).maxVel());
+    m_subsystem.setDrive(
+        new DriveVector(yVel, xVel, rotVel).zeroDirection(currentPos.getAngle()).maxVel());
   }
 
   // Called once the command ends or is interrupted.
@@ -106,8 +132,12 @@ public class GoToCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return pidX.atSetpoint() && pidY.atSetpoint() && pidRot.atSetpoint() &&
-      profileX.isFinished(kDt) && profileY.isFinished(kDt) && profileRot.isFinished(kDt);
+    return pidX.atSetpoint()
+        && pidY.atSetpoint()
+        && pidRot.atSetpoint()
+        && profileX.isFinished(kDt)
+        && profileY.isFinished(kDt)
+        && profileRot.isFinished(kDt);
     // return false;
   }
 }

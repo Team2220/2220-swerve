@@ -15,7 +15,10 @@ public class SwerveModule {
     private final double steerOffset;
 
     private final double angleRatio = ModuleConfig.DT_STEER_GEAR_RATIO;
-    private final double velocityRatio = (ModuleConfig.DT_WHEEL_DIAMETER * Math.PI) / ModuleConfig.DT_DRIVE_GEAR_RATIO * 60;
+    private final double velocityRatio = 
+        (ModuleConfig.DT_DRIVE_GEAR_RATIO / 1)              // Reduction from motor to output
+        * (1 / (ModuleConfig.DT_WHEEL_DIAMETER * Math.PI))  // Convert from rotations to meters
+        * (60 / 1);                                         // Convert from minutes to seconds
 
     public SwerveModule(int driveMotorCanID, int steerMotorCanID, int steerEncoderAnalogPort, double steerOffset) {
         steerMotor = new SteerMotor(steerMotorCanID);

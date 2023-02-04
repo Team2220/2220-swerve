@@ -22,15 +22,15 @@ public class PIDconfig {
 
 
     // Autonomous PID constants
-    public static final TunableDouble DT_AUTO_P = new TunableDouble("DT_AUTO_P", 0, SHUFFLEBOARD_VALUES_ENABLED).setSpot(0, 2);
-    public static final TunableDouble DT_AUTO_I = new TunableDouble("DT_AUTO_I", 0, SHUFFLEBOARD_VALUES_ENABLED).setSpot(1, 2);
+    public static final TunableDouble DT_AUTO_P = new TunableDouble("DT_AUTO_P", 3, SHUFFLEBOARD_VALUES_ENABLED).setSpot(0, 2);
+    public static final TunableDouble DT_AUTO_I = new TunableDouble("DT_AUTO_I", 1, SHUFFLEBOARD_VALUES_ENABLED).setSpot(1, 2);
     public static final TunableDouble DT_AUTO_D = new TunableDouble("DT_AUTO_D", 0, SHUFFLEBOARD_VALUES_ENABLED).setSpot(2, 2);
 
     
 
     // Gyro autonomous PID constants
-    public static final TunableDouble DT_AUTO_ROT_P = new TunableDouble("DT_AUTO_ROT_P", 0, SHUFFLEBOARD_VALUES_ENABLED).setSpot(0, 3);
-    public static final TunableDouble DT_AUTO_ROT_I = new TunableDouble("DT_AUTO_ROT_I", 0, SHUFFLEBOARD_VALUES_ENABLED).setSpot(1, 3);
+    public static final TunableDouble DT_AUTO_ROT_P = new TunableDouble("DT_AUTO_ROT_P", 3, SHUFFLEBOARD_VALUES_ENABLED).setSpot(0, 3);
+    public static final TunableDouble DT_AUTO_ROT_I = new TunableDouble("DT_AUTO_ROT_I", 1, SHUFFLEBOARD_VALUES_ENABLED).setSpot(1, 3);
     public static final TunableDouble DT_AUTO_ROT_D = new TunableDouble("DT_AUTO_ROT_D", 0, SHUFFLEBOARD_VALUES_ENABLED).setSpot(2, 3);
 
 

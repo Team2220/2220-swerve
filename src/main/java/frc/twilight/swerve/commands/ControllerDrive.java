@@ -4,6 +4,7 @@
 
 package frc.twilight.swerve.commands;
 
+import frc.twilight.swerve.config.GeneralConfig;
 import frc.twilight.swerve.subsystems.Swerve;
 import frc.twilight.swerve.vectors.DriveVector;
 
@@ -45,7 +46,7 @@ public class ControllerDrive extends CommandBase {
   @Override
   public void execute() {
     m_subsystem.setDrive(
-      new DriveVector(fwd.getAsDouble() * 10, str.getAsDouble() * 10, rot.getAsDouble() * 90)
+      new DriveVector(fwd.getAsDouble() * GeneralConfig.DT_MAX_VEL.getValue(), str.getAsDouble() * GeneralConfig.DT_MAX_VEL.getValue(), rot.getAsDouble() * GeneralConfig.DT_MAX_ROT_VEL.getValue())
         .maxVel()
         .maxAccel()
     );

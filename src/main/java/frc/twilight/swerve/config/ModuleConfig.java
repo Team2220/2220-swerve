@@ -5,7 +5,7 @@ public class ModuleConfig {
     public static final double DT_WHEEL_DIAMETER = 0.10033;
 
     // Drive gear ratio
-    public static final double DT_DRIVE_GEAR_RATIO = (14.0 / 50.0) * (28.0 / 16.0) * (15.0 / 45.0);
+    public static final double DT_DRIVE_GEAR_RATIO = (50.0 / 14.0) * (16.0 / 28.0) * (45.0 / 15.0);
     // Drive motor inverted
     public static final boolean DT_DRIVE_MOTOR_INVERTED = false;
 

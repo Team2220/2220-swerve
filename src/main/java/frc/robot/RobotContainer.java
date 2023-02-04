@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.auto.TestPath;
 import frc.twilight.Controller;
 import frc.twilight.swerve.commands.ControllerDrive;
 import frc.twilight.swerve.commands.GoToCommand;
@@ -47,7 +48,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     new Trigger(() -> m_controller.getButtonPressed(Controller.Button.A)).onTrue(new ResetGyro(m_swerve));;
 
-    new Trigger(() -> m_controller.getButtonPressed(Controller.Button.X)).onTrue(new GoToCommand(m_swerve, new Position(0, 0, 0)));
+    new Trigger(() -> m_controller.getButtonPressed(Controller.Button.X)).onTrue(new TestPath(m_swerve));
     new Trigger(() -> m_controller.getButtonPressed(Controller.Button.Y)).onTrue(m_controllerDrive);
 
   }

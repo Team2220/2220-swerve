@@ -15,7 +15,8 @@ public class TestPath extends SequentialCommandGroup {
         // new GoToCommand(swerve, new Position(0, 0, 0)));
 
         new GoToCommand(swerve, new Position(0, 0, 0)),
-        new GoToCommand(swerve, new Position(3, 0, 180))
+        new GoToCommand(swerve, new Position(-3, 0, 0)).setTolerence(0.5, 10),
+        new GoToCommand(swerve, new Position(-3,-3, 0))
     );
   }
 }

@@ -64,6 +64,8 @@ public class GoToCommand extends CommandBase {
   private double movTol = 0.05;
   private double rotTol = 2.5;
 
+  private boolean stopAtEnd = true;
+
   /**
    * Creates a new GoToCommand.
    *
@@ -144,7 +146,8 @@ public class GoToCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_subsystem.setDrive(new DriveVector(0, 0, 0));
+    if (stopAtEnd)
+      m_subsystem.setDrive(new DriveVector(0, 0, 0));
   }
 
   // Returns true when the command should end.
@@ -176,6 +179,12 @@ public class GoToCommand extends CommandBase {
     goalRot.velocity = rotVel;
 
     initialize();
+
+    return this;
+  }
+
+  public GoToCommand stopAtEnd(boolean stop) {
+    stopAtEnd = stop;
 
     return this;
   }

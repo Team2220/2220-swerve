@@ -172,16 +172,6 @@ public class GoToCommand extends CommandBase {
     return this;
   }
 
-  public GoToCommand endPos(double x, double y, double rot) {
-    goalX.position = x;
-    goalY.position = y;
-    goalRot.position = rot;
-
-    initialize();
-
-    return this;
-  }
-
   public GoToCommand endVel(double xVel, double yVel, double rotVel) {
     goalX.velocity = xVel;
     goalY.velocity = yVel;

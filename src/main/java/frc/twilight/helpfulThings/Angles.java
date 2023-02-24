@@ -47,4 +47,9 @@ public class Angles {
 
     return angleNew;
   }
+
+  public static double slopeFromAngle(double angle) {
+    angle = Math.toRadians(angle);
+    return Math.tan(angle);
+  }
 }

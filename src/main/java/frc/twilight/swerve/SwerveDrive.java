@@ -130,7 +130,8 @@ public class SwerveDrive {
 
     gyroPID.setSetpoint(vector.getRcw());
     vector.setRcw(
-        -gyroPID.calculate(gyro.getAngleSpeed()) + PIDconfig.DT_GYRO_F.getValue() * vector.getRcw());
+        -gyroPID.calculate(gyro.getAngleSpeed())
+            + PIDconfig.DT_GYRO_F.getValue() * vector.getRcw());
 
     vector.zeroDirection(-gyro.getAngle());
 

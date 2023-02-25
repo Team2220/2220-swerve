@@ -40,4 +40,10 @@ public class Position {
   public void setAngle(double angle) {
     this.angle = angle;
   }
+
+  public void add(DriveVector drive, double time) {
+    x += drive.getStr() * time;
+    y += drive.getFwd() * time;
+    angle += drive.getRcw() * time;
+  }
 }

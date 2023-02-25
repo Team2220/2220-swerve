@@ -125,4 +125,12 @@ public class DriveVector {
     strLimiter.reset(0);
     rcwLimiter.reset(0);
   }
+
+  public static DriveVector average(DriveVector one, DriveVector two) {
+    return new DriveVector(
+      (one.fwd + two.fwd) / 2, 
+      (one.str + two.str) / 2, 
+      (one.rcw + two.rcw) / 2
+    );
+  }
 }

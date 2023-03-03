@@ -57,7 +57,10 @@ public class SanityCheck {
     out.time = CurrentTime.getTimeMillis();
     out.reportedPos = limelight.getPose();
 
-    if (out.reportedPos == null) return false;
+        if (out.reportedPos == null) {
+            updates.clear();
+            return false;
+        }
 
     out.reportedDrive = swerve.getDrive();
 
